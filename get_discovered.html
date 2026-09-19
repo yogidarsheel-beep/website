@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Discovered | LoremIpsum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .gd-page {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: var(--navy);
+            padding-top: 80px;
+        }
+        
+        .gd-hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+        
+        .gd-left {
+            flex: 1;
+            max-width: 650px;
+        }
+        
+        .gd-overline {
+            color: var(--bright-blue);
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .gd-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+        }
+        
+        .gd-title span {
+            color: var(--bright-blue);
+            font-style: italic;
+            font-weight: 400;
+        }
+        
+        .gd-desc {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #475569;
+            margin-bottom: 2.5rem;
+        }
+        
+        .btn-pink-solid {
+            background: linear-gradient(135deg, var(--bright-blue) 0%, #008BAB 100%);
+            color: #fff;
+            padding: 1rem 2.25rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(0, 166, 204, 0.3);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;
+        }
+        .btn-pink-solid:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 166, 204, 0.4);
+        }
+        
+        .gd-right {
+            flex: 1.2;
+            position: relative;
+        }
+        
+        .gd-dark-card {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f172a 100%); border: 1px solid rgba(255,255,255,0.1); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; transform: translateZ(0); backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 1.75rem;
+            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5);
+            color: #fff;
+            max-width: 650px;
+            margin-left: auto;
+        }
+        
+        .gd-row {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .gd-row:first-child { padding-top: 0; }
+        .gd-row:last-child { border-bottom: none; padding-bottom: 0; }
+        
+        .gd-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .gd-row-info {
+            flex: 1;
+        }
+        .gd-row-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.35rem;
+        }
+        .gd-row-msg {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            line-height: 1.4;
+        }
+        
+        .gd-tag {
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 0.35rem 0.65rem;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            align-self: flex-start;
+        }
+        .gd-tag-spot { color: var(--bright-blue); background: rgba(0, 166, 204, 0.15); border: 1px solid rgba(0, 166, 204, 0.3); }
+        .gd-tag-pitch { color: #fff; background: rgba(255, 255, 255, 0.15); }
+        .gd-tag-booked { color: #10b981; background: rgba(16,185,129,0.15); }
+        
+        .gd-card-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #9ca3af;
+            font-weight: 600;
+            padding-top: 1.25rem;
+            margin-top: 1.25rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            text-transform: uppercase;
+        }
+        
+        .gd-stats-bar {
+            background: rgba(0, 166, 204, 0.04);
+            border-top: 1px solid rgba(0, 166, 204, 0.1);
+            border-bottom: 1px solid rgba(0, 166, 204, 0.1);
+            padding: 4rem 2rem;
+        }
+        .gd-stats-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .gd-stat {
+            flex: 1;
+            padding: 0 3rem;
+            border-left: 1px solid rgba(0, 166, 204, 0.15);
+        }
+        .gd-stat:first-child { border-left: none; padding-left: 0; }
+        
+        .gd-stat h3 {
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        .gd-stat h3 span { color: var(--bright-blue); }
+        .gd-stat p {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    .gd-dark-card:hover { transform: translateY(-10px); box-shadow: 0 50px 100px -20px rgba(0,0,0,0.6); }         .gd-hiw-section {
+            padding: 6rem 2rem 8rem;
+            background: #fff;
+            text-align: center;
+        }
+        .gd-hiw-overline {
+            color: var(--bright-blue);
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .gd-hiw-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 1rem;
+            color: var(--navy);
+        }
+        .gd-hiw-title span {
+            color: var(--bright-blue);
+            font-weight: 400;
+            font-style: italic;
+        }
+        .gd-hiw-subtitle {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 4rem;
+        }
+        .gd-hiw-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .gd-hiw-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease; will-change: transform; transform: translateZ(0); backface-visibility: hidden;
+        }
+        .gd-hiw-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,166,204,0.1);
+            border-color: rgba(0,166,204,0.2);
+        }
+        .gd-hiw-num {
+            color: var(--bright-blue);
+            font-weight: 900;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .gd-hiw-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        .gd-hiw-card p {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+            .gd-profile-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem 8rem;
+        }
+        .gd-profile-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            margin-bottom: 5rem;
+            border-bottom: none;
+            padding-bottom: 5rem;
+        }
+        .btn-navy-solid {
+            background: var(--navy);
+            color: #fff;
+            padding: 1rem 2.25rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(15, 26, 58, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;
+        }
+        .btn-navy-solid:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(15, 26, 58, 0.3);
+        }
+        
+        .gd-white-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
+            max-width: 550px;
+            margin-left: auto;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; transform: translateZ(0); backface-visibility: hidden;
+        }
+        .gd-white-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px rgba(0,166,204,0.1);
+        }
+        
+        .gd-wc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            margin-bottom: 0.5rem;
+        }
+        .gd-wc-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .gd-wc-user img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+        .gd-wc-user div {
+            display: flex;
+            flex-direction: column;
+        }
+        .gd-wc-user strong { font-size: 1.05rem; color: var(--navy); margin-bottom: 0.2rem; }
+        .gd-wc-user span { font-size: 0.75rem; color: #64748b; font-weight: 500; }
+        
+        .gd-wc-strength {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+        }
+        .gd-wc-strength span { font-size: 0.6rem; font-weight: 800; color: #94a3b8; letter-spacing: 0.5px; margin-bottom: 0.2rem; text-transform: uppercase; }
+        .text-brand { color: var(--bright-blue) !important; font-weight: 800; }
+        
+        .gd-wc-row {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .gd-wc-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0,166,204,0.1);
+            color: var(--bright-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+        .gd-wc-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .gd-wc-info strong { font-size: 0.95rem; color: var(--navy); margin-bottom: 0.2rem; }
+        .gd-wc-info span { font-size: 0.8rem; color: #64748b; }
+        .gd-tag-added { color: #10b981; background: rgba(16,185,129,0.1); }
+        
+        .gd-wc-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 600;
+            padding-top: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .gd-feat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem 6rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .gd-feat-item {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+        .gd-check {
+            width: 18px; height: 18px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 3;
+            
+            stroke-linejoin: round;
+            flex-shrink: 0;
+            margin-top: 2px;
+            background: var(--bright-blue);
+            border-radius: 50%;
+            padding: 4px;
+        }
+        .gd-feat-item h4 {
+            font-size: 1.1rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+        .gd-feat-item p {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+            .gd-testim-section {
+            padding: 4rem 2rem 8rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .gd-testim-overline {
+            color: var(--bright-blue);
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .gd-testim-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 4rem;
+            color: var(--navy);
+        }
+        .gd-testim-title span {
+            color: var(--bright-blue);
+            font-weight: 400;
+            font-style: italic;
+        }
+        
+        .gd-testim-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: left;
+        }
+        .gd-testim-card {
+            background: rgba(0,166,204,0.03);
+            border: 1px solid rgba(0,166,204,0.15);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease; will-change: transform; transform: translateZ(0); backface-visibility: hidden;
+        }
+        .gd-testim-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,166,204,0.08);
+            background: rgba(0,166,204,0.05);
+        }
+        .gd-testim-role {
+            color: var(--bright-blue);
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .gd-testim-quote {
+            font-size: 1.05rem;
+            color: var(--navy);
+            line-height: 1.6;
+            font-style: italic;
+            font-weight: 500;
+        }
+            .gd-faq-section {
+            padding: 4rem 2rem 10rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .gd-faq-overline {
+            color: var(--bright-blue);
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .gd-faq-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 4rem;
+            color: var(--navy);
+        }
+        
+        .gd-faq-list {
+            text-align: left;
+        }
+                .gd-faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        .gd-faq-item:first-child {
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+        .gd-faq-btn {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--navy);
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .gd-faq-icon {
+            width: 18px; height: 18px;
+            fill: #cbd5e1;
+            
+            
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), fill 0.4s;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+        .gd-faq-item.active .gd-faq-icon {
+            transform: rotate(45deg);
+            fill: var(--bright-blue);
+        }
+        .gd-faq-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gd-faq-item.active .gd-faq-content {
+            grid-template-rows: 1fr;
+        }
+        .gd-faq-inner {
+            overflow: hidden;
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            padding-bottom: 0;
+            transition: padding-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gd-faq-item.active .gd-faq-inner {
+            padding-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="universal-header">
+        <div class="logo">
+            <a href="index.html" style="color: inherit; text-decoration: none;">LoremIpsum<span style="color: var(--bright-blue);">:</span></a>
+        </div>
+        
+        <nav class="universal-nav">
+            <a href="employee.html">Why Us?</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="get_discovered.html" class="active">Get Discovered</a>
+        </nav>
+    </header>
+
+    <div class="gd-page">
+        <section class="gd-hero">
+            <div class="gd-left">
+                <span class="gd-overline">GET DISCOVERED</span>
+                <h1 class="gd-title">Let companies <span>come to you.</span></h1>
+                <p class="gd-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <a href="#" class="btn-pink-solid">Get discovered &rarr;</a>
+            </div>
+            <div class="gd-right">
+                <div class="gd-dark-card">
+                    <div class="gd-row">
+                        <img src="https://i.pravatar.cc/150?img=5" class="gd-avatar" alt="Jessica Wu">
+                        <div class="gd-row-info">
+                            <div class="gd-row-name">Jessica Wu</div>
+                            <div class="gd-row-msg">Full Stack Engineer &middot; 5 YOE</div>
+                        </div>
+                        <div class="gd-tag gd-tag-spot">&bull; SPOTLIGHTED</div>
+                    </div>
+                    
+                    <div class="gd-row">
+                        <img src="https://i.pravatar.cc/150?img=47" class="gd-avatar" alt="Maya Lin">
+                        <div class="gd-row-info">
+                            <div class="gd-row-name">Maya Lin &middot; Founder, Monograph</div>
+                            <div class="gd-row-msg">"We're rebuilding how architects run projects. Your design-systems work fits perfectly."</div>
+                        </div>
+                        <div class="gd-tag gd-tag-pitch">PITCH</div>
+                    </div>
+                    
+                    <div class="gd-row">
+                        <img src="https://i.pravatar.cc/150?img=11" class="gd-avatar" alt="Daniel Okafor">
+                        <div class="gd-row-info">
+                            <div class="gd-row-name">Daniel Okafor &middot; Eng Lead, Braze</div>
+                            <div class="gd-row-msg">"Saw your profile in this week's spotlight. Want to see what our platform team is building?"</div>
+                        </div>
+                        <div class="gd-tag gd-tag-pitch">PITCH</div>
+                    </div>
+                    
+                    <div class="gd-row">
+                        <img src="https://i.pravatar.cc/150?img=13" class="gd-avatar" alt="Max Geller">
+                        <div class="gd-row-info">
+                            <div class="gd-row-name">Max Geller &middot; Founder, Preset</div>
+                            <div class="gd-row-msg">"Booked! Calendar invite sent for Thursday. Excited to talk."</div>
+                        </div>
+                        <div class="gd-tag gd-tag-booked">BOOKED</div>
+                    </div>
+                    
+                    <div class="gd-card-footer">
+                        <span>0 applications sent</span>
+                        <span>3 pitches this week</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="gd-stats-bar">
+            <div class="gd-stats-inner">
+                <div class="gd-stat">
+                    <h3>0</h3>
+                    <p>Applications required</p>
+                </div>
+                <div class="gd-stat">
+                    <h3>3<span>x</span></h3>
+                    <p>More connections when featured</p>
+                </div>
+                <div class="gd-stat">
+                    <h3>8</h3>
+                    <p>Weeks per spotlight, renewable</p>
+                </div>
+            </div>
+        </section>
+            <section class="gd-hiw-section">
+            <span class="gd-hiw-overline">HOW IT WORKS</span>
+            <h2 class="gd-hiw-title">Sit back <span>to stand out.</span></h2>
+            <p class="gd-hiw-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+            
+            <div class="gd-hiw-grid">
+                <div class="gd-hiw-card">
+                    <span class="gd-hiw-num">01</span>
+                    <h3>Build a profile that shows what you can do</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                </div>
+                <div class="gd-hiw-card">
+                    <span class="gd-hiw-num">02</span>
+                    <h3>We spotlight you to the right companies</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                </div>
+                <div class="gd-hiw-card">
+                    <span class="gd-hiw-num">03</span>
+                    <h3>Founders pitch you directly</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                </div>
+            </div>
+        </section>
+            <hr style="border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 0; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">`n        <section class="gd-profile-section">
+            <div class="gd-profile-top">
+                <div class="gd-left">
+                    <span class="gd-overline">YOUR PROFILE</span>
+                    <h2 class="gd-title">Your profile<br>does <span>the talking.</span></h2>
+                    <p class="gd-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <a href="#" class="btn-navy-solid">Build your profile &rarr;</a>
+                </div>
+                <div class="gd-right">
+                    <div class="gd-white-card">
+                        <div class="gd-wc-header">
+                            <div class="gd-wc-user">
+                                <img src="https://i.pravatar.cc/150?img=5" alt="Jessica Wu">
+                                <div>
+                                    <strong>Jessica Wu</strong>
+                                    <span>Full-Stack Engineer &middot; 5 YOE</span>
+                                </div>
+                            </div>
+                            <div class="gd-wc-strength">
+                                <span>SPOTLIGHT STRENGTH</span>
+                                <strong class="text-brand">strong</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="gd-wc-row">
+                            <div class="gd-wc-icon">+</div>
+                            <div class="gd-wc-info">
+                                <strong>Game-engine side project</strong>
+                                <span>Live demo + repo &middot; What founders mention most</span>
+                            </div>
+                            <span class="gd-tag gd-tag-added">ADDED</span>
+                        </div>
+                        
+                        <div class="gd-wc-row">
+                            <div class="gd-wc-icon">+</div>
+                            <div class="gd-wc-info">
+                                <strong>Skills &amp; tools</strong>
+                                <span>React &middot; Node &middot; AWS &middot; Postgres</span>
+                            </div>
+                            <span class="gd-tag gd-tag-added">ADDED</span>
+                        </div>
+                        
+                        <div class="gd-wc-row">
+                            <div class="gd-wc-icon">+</div>
+                            <div class="gd-wc-info">
+                                <strong>Preferences</strong>
+                                <span>+ &middot; Remote &middot; Series A-C</span>
+                            </div>
+                            <span class="gd-tag gd-tag-added">ADDED</span>
+                        </div>
+                        
+                        <div class="gd-wc-footer">
+                            <span>Visible to companies that match</span>
+                            <strong class="text-brand">Polished with our team</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gd-profile-bottom">
+                <div class="gd-feat-grid">
+                    <div class="gd-feat-item">
+                        <svg viewBox="0 0 24 24" class="gd-check"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <div>
+                            <h4>More than a r&eacute;sum&eacute;</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                        </div>
+                    </div>
+                    <div class="gd-feat-item">
+                        <svg viewBox="0 0 24 24" class="gd-check"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <div>
+                            <h4>Preferences built in</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                        </div>
+                    </div>
+                    <div class="gd-feat-item">
+                        <svg viewBox="0 0 24 24" class="gd-check"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <div>
+                            <h4>Polished with our team</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                        </div>
+                    </div>
+                    <div class="gd-feat-item">
+                        <svg viewBox="0 0 24 24" class="gd-check"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <div>
+                            <h4>Always in your control</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <hr style="border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 0; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+        
+        <section class="gd-testim-section">
+            <span class="gd-testim-overline">DISCOVERED ON LOREMIPSUM</span>
+            <h2 class="gd-testim-title">They stopped<br>applying. <span>It worked.</span></h2>
+            
+            <div class="gd-testim-grid">
+                <div class="gd-testim-card">
+                    <span class="gd-testim-role">Engineering Lead</span>
+                    <p class="gd-testim-quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
+                </div>
+                <div class="gd-testim-card">
+                    <span class="gd-testim-role">Product Designer</span>
+                    <p class="gd-testim-quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
+                </div>
+                <div class="gd-testim-card">
+                    <span class="gd-testim-role">Software Engineer</span>
+                    <p class="gd-testim-quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
+                </div>
+            </div>
+        </section>
+            <hr style="border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 0; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+        
+        
+            <section class="gd-faq-section">
+            <span class="gd-faq-overline">FAQ</span>
+            <h2 class="gd-faq-title">Common questions.</h2>
+            
+            <div class="gd-faq-list">
+                <div class="gd-faq-item active">
+                    <button class="gd-faq-btn">
+                        <span>How do I get discovered by companies on LoremIpsum?</span>
+                        <svg viewBox="0 0 24 24" class="gd-faq-icon"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
+                    </button>
+                    <div class="gd-faq-content">
+                        <div class="gd-faq-inner">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    </div>
+                </div>
+                <div class="gd-faq-item">
+                    <button class="gd-faq-btn">
+                        <span>How does the Featured spotlight work?</span>
+                        <svg viewBox="0 0 24 24" class="gd-faq-icon"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
+                    </button>
+                    <div class="gd-faq-content">
+                        <div class="gd-faq-inner">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    </div>
+                </div>
+                <div class="gd-faq-item">
+                    <button class="gd-faq-btn">
+                        <span>What if I'm not selected for Featured?</span>
+                        <svg viewBox="0 0 24 24" class="gd-faq-icon"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
+                    </button>
+                    <div class="gd-faq-content">
+                        <div class="gd-faq-inner">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    </div>
+                </div>
+                <div class="gd-faq-item">
+                    <button class="gd-faq-btn">
+                        <span>Will my current employer see that I'm looking?</span>
+                        <svg viewBox="0 0 24 24" class="gd-faq-icon"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
+                    </button>
+                    <div class="gd-faq-content">
+                        <div class="gd-faq-inner">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    </div>
+                </div>
+                <div class="gd-faq-item">
+                    <button class="gd-faq-btn">
+                        <span>What makes a profile get discovered?</span>
+                        <svg viewBox="0 0 24 24" class="gd-faq-icon"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
+                    </button>
+                    <div class="gd-faq-content">
+                        <div class="gd-faq-inner">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    </div>
+                </div>
+                <div class="gd-faq-item">
+                    <button class="gd-faq-btn">
+                        <span>Can I pause or opt out?</span>
+                        <svg viewBox="0 0 24 24" class="gd-faq-icon"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
+                    </button>
+                    <div class="gd-faq-content">
+                        <div class="gd-faq-inner">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            document.querySelectorAll('.gd-faq-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.closest('.gd-faq-item');
+                    const isActive = item.classList.contains('active');
+                    
+                    // Optional: Close all others
+                    document.querySelectorAll('.gd-faq-item').forEach(i => i.classList.remove('active'));
+                    
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        </script>
+    
+<section class="cta-footer-section page-section" style="background: radial-gradient(ellipse at center 40%, rgba(0, 166, 204, 0.15) 0%, transparent 50%), var(--navy); color: #fff; padding: 6rem 5% 2rem; justify-content: flex-start; text-align: center;">
+            <div class="cta-content" style="max-width: 800px; margin: 0 auto 6rem;">
+                <h2 style="font-size: 3.5rem; font-weight: 700; margin-bottom: 1.5rem;">
+                    What's <span class="highlight" style="color: var(--bright-blue); font-weight: 400; font-style: italic;">your next move?</span>
+                </h2>
+                <p style="color: #a0a0b8; font-size: 1.1rem; margin-bottom: 3rem;">The right job, or the right hire. Both start here.</p>
+                
+                <div class="cta-buttons" style="display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn-primary">Sign up to find a job &rarr;</button>
+                    <button class="secondary-btn" style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 30px; padding: 0.8rem 1.5rem; font-weight: 600; cursor: pointer;">Start hiring</button>
+                </div>
+            </div>
+
+            <footer style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 2rem; text-align: left; padding-top: 4rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div class="footer-col" style="padding-right: 2rem;">
+                    <div class="logo" style="color: #fff; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">LoremIpsum<span style="color: var(--bright-blue);">:</span></div>
+                    <p style="color: #a0a0b8; font-size: 0.85rem; line-height: 1.6; margin-bottom: 2rem;">LoremIpsum is the AI recruiting platform and talent marketplace for startups. Post jobs, source candidates with AI agents, or partner with a dedicated recruiter.</p>
+                    <div class="social-links" style="display: flex; gap: 1rem;">
+                        <span style="color: #a0a0b8; cursor: pointer;">in</span>
+                        <span style="color: #a0a0b8; cursor: pointer;">X</span>
+                        <span style="color: #a0a0b8; cursor: pointer;">ig</span>
+                        <span style="color: #a0a0b8; cursor: pointer;">yt</span>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 1.5rem; text-transform: uppercase;">FOR COMPANIES</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+                        <li><a href="companies.html" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Overview</a></li>
+                        <li><a href="post_a_job.html" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Post a job</a></li>
+                        <li><a href="pricing.html" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 1.5rem; text-transform: uppercase;">FOR CANDIDATES</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Candidate overview</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Startup jobs</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Remote jobs</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Remote work guide</a></li>
+                        <li><a href="get_discovered.html" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Get discovered</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Salary calculator</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 1.5rem; text-transform: uppercase;">COMPANY</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">About LoremIpsum</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Customer stories</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Blog</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Careers</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 1.5rem; text-transform: uppercase;">TRUST & SUPPORT</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Help center</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Trust center</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">AI audit center</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Platform status</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Privacy & cookies</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Cookie Preferences</a></li>
+                        <li><a href="#" style="color: #a0a0b8; text-decoration: none; font-size: 0.85rem;">Terms & risks</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </section>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
