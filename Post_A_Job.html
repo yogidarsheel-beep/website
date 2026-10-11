@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job - Get Noticed by the Right People</title>
+    <!-- Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Site Stylesheet from index.html -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ==========================================================================
+           POST A JOB PAGE - MULTI-CHANNEL SYNDICATION & AI MATCHING ECOSYSTEM
+           ========================================================================== */
+
+        /* Hero Section Container & Theme Background */
+        .pj-hero {
+            position: relative;
+            background: radial-gradient(circle at 85% 20%, rgba(219, 234, 254, 0.7) 0%, transparent 45%),
+                        radial-gradient(circle at 10% 80%, rgba(239, 246, 255, 0.85) 0%, transparent 45%),
+                        linear-gradient(135deg, #f8fbff 0%, #edf4fe 55%, #e2eeff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 95px 0 25px 0;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Aesthetic Minimal Background Graphics System */
+        .pj-bg-graphics {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ambient Glowing Blobs */
+        .pj-bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(85px);
+            pointer-events: none;
+        }
+
+        .pj-blob-1 {
+            top: -100px;
+            left: -100px;
+            width: 560px;
+            height: 560px;
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .pj-blob-2 {
+            top: 10%;
+            right: 6%;
+            width: 640px;
+            height: 640px;
+            background: radial-gradient(circle, rgba(147, 197, 253, 0.42) 0%, rgba(191, 219, 254, 0.18) 55%, transparent 75%);
+        }
+
+        .pj-blob-3 {
+            bottom: -90px;
+            right: 22%;
+            width: 580px;
+            height: 580px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.22) 0%, rgba(219, 234, 254, 0.1) 50%, transparent 70%);
+        }
+
+        /* Subtle Precision Tech Grid with Soft Radial Mask */
+        .pj-bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 82, 255, 0.038) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 82, 255, 0.038) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 25%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 25%, transparent 80%);
+            opacity: 0.95;
+        }
+
+        /* Fluid Organic Background Waves (Matching index.html) */
+        .pj-bg-waves {
+            position: absolute;
+            right: -4%;
+            top: 0;
+            width: 68%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* Subtle Aesthetic Geometric Sparkle Accents */
+        .pj-bg-sparkle {
+            position: absolute;
+            color: #3b82f6;
+            opacity: 0.28;
+            pointer-events: none;
+        }
+
+        .pj-sparkle-1 {
+            top: 130px;
+            left: 47%;
+            width: 18px;
+            height: 18px;
+        }
+
+        .pj-sparkle-2 {
+            top: 260px;
+            right: 48%;
+            width: 14px;
+            height: 14px;
+            opacity: 0.22;
+        }
+
+        .pj-sparkle-3 {
+            bottom: 140px;
+            right: 6%;
+            width: 16px;
+            height: 16px;
+            opacity: 0.25;
+        }
+
+        .pj-container {
+            max-width: 1440px;
+            width: 94%;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pj-main-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 860px;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        /* -- LEFT COLUMN -- */
+        .pj-left-col {
+            max-width: 580px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pj-eyebrow {
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 2.2px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .pj-title {
+            font-size: 3.85rem;
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-dark);
+            margin-bottom: 22px;
+        }
+
+        .pj-title span.highlight {
+            color: var(--primary-blue);
+            font-style: italic;
+        }
+
+        .pj-desc {
+            font-size: 1.05rem;
+            line-height: 1.62;
+            color: var(--text-muted);
+            margin-bottom: 34px;
+            max-width: 520px;
+            font-weight: 400;
+        }
+
+        /* -- CTA BUTTONS & CHECKLIST -- */
+        .pj-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .pj-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 34px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.98rem;
+            text-decoration: none;
+            box-shadow: 0 10px 24px -2px rgba(0, 82, 255, 0.38);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            gap: 8px;
+        }
+
+        .pj-btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px -2px rgba(0, 82, 255, 0.45);
+        }
+
+        .pj-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eef5ff;
+            color: var(--primary-blue);
+            padding: 15px 32px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.98rem;
+            text-decoration: none;
+            border: 1px solid #d4e5ff;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pj-btn-secondary:hover {
+            background-color: #e0edfe;
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 82, 255, 0.12);
+        }
+
+        .pj-checks-row {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .check-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .check-circle {
+            width: 17px;
+            height: 17px;
+            background: #dbeafe;
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.62rem;
+            flex-shrink: 0;
+            font-weight: 800;
+        }
+
+        /* -- RIGHT COLUMN: ECOSYSTEM STAGE -- */
+        .pj-right-col {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .eco-stage {
+            position: relative;
+            width: 860px;
+            height: 600px;
+        }
+
+        /* Dashed Orbit Ring & Connectors SVG */
+        .eco-orbit-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: visible;
+        }
+
+        /* Shared Card Styles */
+        .eco-card {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.02);
+            position: absolute;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .eco-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 36px rgba(0, 82, 255, 0.1);
+        }
+
+        /* ====================
+           1. CENTER MAIN CARD
+           ==================== */
+        .job-center-card {
+            left: 200px;
+            top: 159px;
+            width: 385px;
+            padding: 22px 24px;
+            border-radius: 20px;
+            box-shadow: 0 24px 50px -10px rgba(15, 23, 42, 0.1), 0 4px 14px rgba(0, 0, 0, 0.04);
+            z-index: 5;
+            box-sizing: border-box;
+        }
+
+        .center-job-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .company-icon-box {
+            width: 42px;
+            height: 42px;
+            background: #eff6ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            border: 1px solid #dbeafe;
+        }
+
+        .center-job-info { flex: 1; min-width: 0; }
+
+        .center-job-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 3px;
+        }
+
+        .center-job-title-row h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .status-badge-active {
+            background-color: #dcfce7;
+            color: #15803d;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .center-job-sub {
+            font-size: 0.74rem;
+            color: #64748b;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .center-more-icon { color: #94a3b8; font-size: 0.9rem; cursor: pointer; }
+
+        .center-job-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .center-tag {
+            background: #f1f5f9;
+            color: #334155;
+            font-size: 0.68rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .center-tag-salary {
+            background: #eff6ff;
+            color: var(--primary-blue);
+            border: 1px solid #dbeafe;
+            font-weight: 700;
+        }
+
+        .center-divider {
+            height: 1px;
+            background: #f1f5f9;
+            margin: 0 -24px 16px -24px;
+        }
+
+        .center-metrics-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .c-metric h4 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 2px 0;
+            line-height: 1;
+        }
+
+        .c-metric p {
+            font-size: 0.7rem;
+            color: #64748b;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .btn-view-matched {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: #f8faff;
+            color: var(--primary-blue);
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 12px 16px;
+            border-radius: 9999px;
+            border: 1px solid #d4e5ff;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            gap: 6px;
+            box-sizing: border-box;
+        }
+
+        .btn-view-matched:hover {
+            background: #e0edfe;
+            border-color: var(--primary-blue);
+        }
+
+        /* ====================
+           2. SATELLITE CARDS
+           ==================== */
+
+        /* TOP-LEFT: Job live across multiple platforms */
+        .sat-top-live {
+            position: absolute;
+            left: 134px;
+            top: 80px;
+            width: 185px;
+            height: 58px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 14px;
+            z-index: 4;
+            box-sizing: border-box;
+        }
+
+        .sat-icon-blue-box {
+            width: 32px;
+            height: 32px;
+            background: #0052ff;
+            color: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .sat-top-live .live-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sat-top-live .live-text span {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.35;
+        }
+
+        /* LEFT STACK: LinkedIn, Naukri, Indeed, +10 more */
+        .sat-left-syndication {
+            position: absolute;
+            left: 62px;
+            top: 224px;
+            width: 110px;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            z-index: 4;
+        }
+
+        .platform-pill {
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 10px;
+            padding: 7px 11px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+            white-space: nowrap;
+            width: 100%;
+            box-sizing: border-box;
+            transition: transform 0.2s ease;
+        }
+
+        .platform-pill:hover { transform: translateX(2px); }
+
+        .pill-linkedin i { color: #0a66c2; font-size: 0.95rem; }
+
+        .pill-naukri .naukri-dot {
+            width: 16px;
+            height: 16px;
+            background: #0077b5;
+            color: #fff;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 800;
+        }
+
+        .pill-indeed .indeed-icon {
+            width: 16px;
+            height: 16px;
+            background: #003a9b;
+            color: #fff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 800;
+            font-style: italic;
+        }
+
+        .pill-more {
+            background: #f8fafc;
+            color: #0284c7;
+            font-size: 0.74rem;
+            font-weight: 700;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+            height: 34px;
+        }
+
+        /* TOP-RIGHT: Reach 10M+ professionals */
+        .sat-top-reach {
+            position: absolute;
+            left: 594px;
+            top: 74px;
+            width: 170px;
+            height: 60px;
+            padding: 10px 14px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 4;
+            box-sizing: border-box;
+        }
+
+        .sat-top-reach .icon-chart {
+            width: 34px;
+            height: 34px;
+            background: #eff6ff;
+            color: var(--primary-blue);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        .sat-top-reach .reach-text h5 {
+            font-size: 0.84rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 2px 0;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .sat-top-reach .reach-text p {
+            font-size: 0.72rem;
+            color: #64748b;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* RIGHT STACK: 3 Candidates */
+        .sat-right-candidates {
+            position: absolute;
+            left: 614px;
+            top: 150px;
+            width: 185px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 4;
+        }
+
+        .match-card {
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 14px;
+            padding: 10px 12px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            box-shadow: 0 8px 20px rgba(0, 82, 255, 0.05);
+            transition: transform 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .match-card:hover {
+            transform: translateX(-3px);
+            box-shadow: 0 12px 24px rgba(0, 82, 255, 0.09);
+        }
+
+        .match-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .match-info { flex: 1; min-width: 0; }
+
+        .match-score {
+            font-size: 0.76rem;
+            font-weight: 800;
+            color: #16a34a;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+
+        .match-role {
+            font-size: 0.73rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+
+        .match-exp {
+            font-size: 0.68rem;
+            color: #64748b;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        /* BOTTOM-LEFT: Get notified instantly */
+        .sat-bottom-notify {
+            position: absolute;
+            left: 222px;
+            top: 474px;
+            width: 152px;
+            height: 52px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 14px;
+            z-index: 4;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        .notify-check-circle {
+            width: 28px;
+            height: 28px;
+            background: #0052ff;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .notify-text h5 {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 2px 0;
+            line-height: 1.2;
+        }
+
+        .notify-text p {
+            font-size: 0.72rem;
+            color: #64748b;
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        /* BOTTOM-RIGHT: Hire faster with AI matching */
+        .sat-bottom-matching {
+            position: absolute;
+            left: 594px;
+            top: 474px;
+            width: 170px;
+            height: 52px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 14px;
+            z-index: 4;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        .matching-icon {
+            width: 30px;
+            height: 30px;
+            background: #eff6ff;
+            color: var(--primary-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .matching-text h5 {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 2px 0;
+            line-height: 1.2;
+        }
+
+        .matching-text p {
+            font-size: 0.72rem;
+            color: #64748b;
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+                /* ----- BOTTOM STATS ROW ----- */
+        .pj-stats-row {
+            margin-top: 15px;
+            padding: 24px 0 8px 0;
+            border-top: 1px solid rgba(203, 213, 225, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            background: #eff6ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .stat-text h4 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-text p {
+            font-size: 0.88rem;
+            color:
+        /* Responsive Breakpoints */
+        @media (max-width: 1536px) {
+            .pj-main-grid {
+                grid-template-columns: minmax(0, 1fr) 800px;
+                gap: 20px;
+            }
+            .eco-stage {
+                transform: scale(0.93);
+                transform-origin: center right;
+            }
+        }
+
+        @media (max-width: 1366px) {
+            .pj-main-grid {
+                grid-template-columns: minmax(0, 1fr) 740px;
+                gap: 16px;
+            }
+            .eco-stage {
+                transform: scale(0.86);
+                transform-origin: center right;
+            }
+        }
+
+        @media (max-width: 1280px) {
+            .pj-main-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .pj-left-col {
+                max-width: 100%;
+                text-align: center;
+            }
+            .pj-desc {
+                margin: 0 auto 36px;
+            }
+            .pj-cta-row {
+                justify-content: center;
+            }
+            .pj-checks-row {
+                justify-content: center;
+            }
+            .eco-stage {
+                transform: scale(0.9);
+                transform-origin: center center;
+            }
+            .pj-stats-row {
+                flex-wrap: wrap;
+                gap: 24px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 16px;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+            .pj-hero {
+                padding: 95px 0 40px;
+                min-height: auto;
+            }
+            .pj-title {
+                font-size: 2.3rem;
+                line-height: 1.15;
+            }
+            .pj-right-col {
+                width: 100%;
+                overflow: hidden;
+            }
+            .eco-stage {
+                width: 720px;
+                transform: scale(0.5);
+                transform-origin: top center;
+                margin-bottom: -240px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">LoremIpsum<span class="logo-accent">:</span></a>
+            </div>
+            <nav class="nav-links">
+                <a href="For_Employeer.html">Overview</a>
+                <a href="Post_A_Job.html" class="active">Post a job</a>
+                <a href="#">Pricing</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pj-hero">
+        <!-- Aesthetic Minimal Background System -->
+        <div class="pj-bg-graphics">
+            <div class="pj-bg-blob pj-blob-1"></div>
+            <div class="pj-bg-blob pj-blob-2"></div>
+            <div class="pj-bg-blob pj-blob-3"></div>
+            <div class="pj-bg-grid"></div>
+            <svg class="pj-bg-waves" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M750,-120 C920,180 1200,220 1650,80 L1650,-120 Z" fill="url(#heroWave1)" opacity="0.38"/>
+                <path d="M680,950 C880,580 1250,540 1650,720 L1650,950 Z" fill="url(#heroWave2)" opacity="0.32"/>
+                <path d="M920,950 C1100,480 1350,320 1680,480 L1680,950 Z" fill="url(#heroWave3)" opacity="0.2"/>
+                <defs>
+                    <linearGradient id="heroWave1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#bfdbfe"/>
+                        <stop offset="100%" stop-color="#3b82f6"/>
+                    </linearGradient>
+                    <linearGradient id="heroWave2" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#60a5fa"/>
+                        <stop offset="100%" stop-color="#93c5fd"/>
+                    </linearGradient>
+                    <linearGradient id="heroWave3" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6"/>
+                        <stop offset="100%" stop-color="#dbeafe"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <!-- Minimal Geometric Sparkles -->
+            <svg class="pj-bg-sparkle pj-sparkle-1" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.4 9.6L24 12L14.4 14.4L12 24L9.6 14.4L0 12L9.6 9.6L12 0Z"/>
+            </svg>
+            <svg class="pj-bg-sparkle pj-sparkle-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.4 9.6L24 12L14.4 14.4L12 24L9.6 14.4L0 12L9.6 9.6L12 0Z"/>
+            </svg>
+            <svg class="pj-bg-sparkle pj-sparkle-3" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.4 9.6L24 12L14.4 14.4L12 24L9.6 14.4L0 12L9.6 9.6L12 0Z"/>
+            </svg>
+        </div>
+
+        <div class="pj-container">
+            
+            <div class="pj-main-grid">
+                
+                <!-- Left Content -->
+                <div class="pj-left-col">
+                    <div class="pj-eyebrow">POST JOBS. FIND THE RIGHT TALENT.</div>
+                    <h1 class="pj-title">
+                        Post a job.<br>
+                        <span class="highlight">Get noticed</span><br>
+                        by the right people.
+                    </h1>
+                    <p class="pj-desc">
+                        Reach millions of qualified candidates with AI-powered matching, email alerts, and multi-channel syndication. From startups to enterprises &mdash; hire faster, smarter and with confidence.
+                    </p>
+
+                    <div class="pj-cta-row">
+                        <a href="#" class="pj-btn-primary">Post a job for free <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#" class="pj-btn-secondary">Book a Demo</a>
+                    </div>
+                    
+                    <div class="pj-checks-row">
+                        <div class="check-item"><span class="check-circle"><i class="fa-solid fa-check"></i></span> Unlimited job posts*</div>
+                        <div class="check-item"><span class="check-circle"><i class="fa-solid fa-check"></i></span> No credit card required</div>
+                        <div class="check-item"><span class="check-circle"><i class="fa-solid fa-check"></i></span> Go live in 4 minutes</div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Multi-Channel & Candidate Matching Ecosystem -->
+                <div class="pj-right-col">
+                                        <div class="pj-right-col">
+                    <!-- Blank / Design Removed -->
+                </div>
+
+            </div>
+
+            <!-- Bottom Stats Row -->
+            <div class="pj-stats-row">
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fa-solid fa-building"></i></div>
+                    <div class="stat-text">
+                        <h4>2,500+</h4>
+                        <p>Companies hiring</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-text">
+                        <h4>5M+</h4>
+                        <p>Verified professionals</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div class="stat-text">
+                        <h4>70%</h4>
+                        <p>Faster time to hire</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                    <div class="stat-text">
+                        <h4>4.8/5</h4>
+                        <p>Customer satisfaction</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+</html>
