@@ -1,0 +1,2827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="theme-color" content="#faf6f0"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <title>Choose a Gift — A Little World</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --cream:        #faf6f0;
+      --ivory-card:   #ffffff;
+      --gold:         #b8923a;
+      --gold-light:   #f5e6c4;
+      --gold-rich:    #d4a843;
+      --gold-border:  rgba(184, 146, 58, 0.45);
+      --burgundy:     #5c1428;
+      --burgundy-deep:#3b0a17;
+      --ruby:         #9e1933;
+      --text:         #1a0d11;
+      --muted:        #7a5040;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ─── ANIMATED AMBIENT GLOW MESH ─── */
+    .ambient-mesh {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      filter: blur(65px);
+      opacity: 0.9;
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      animation: morphOrb 14s ease-in-out infinite alternate;
+    }
+
+    .glow-orb-1 {
+      width: 460px;
+      height: 460px;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.28) 0%, transparent 70%);
+      top: -10%;
+      left: -8%;
+      animation-duration: 16s;
+    }
+
+    .glow-orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(160, 36, 68, 0.16) 0%, transparent 70%);
+      bottom: -15%;
+      right: -10%;
+      animation-duration: 20s;
+      animation-direction: alternate-reverse;
+    }
+
+    .glow-orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(240, 190, 200, 0.28) 0%, transparent 70%);
+      top: 35%;
+      left: 28%;
+      animation-duration: 13s;
+    }
+
+    @keyframes morphOrb {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(45px, -35px) scale(1.14); }
+      100% { transform: translate(-35px, 45px) scale(0.92); }
+    }
+
+    /* ─── FALLING PETALS & ROMANTIC SPARKLES ─── */
+    .petals-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .falling-petal {
+      position: absolute;
+      user-select: none;
+      animation: petalDrift linear infinite;
+      opacity: 0.85;
+      filter: drop-shadow(0 2px 5px rgba(92, 20, 40, 0.12));
+    }
+
+    @keyframes petalDrift {
+      0% {
+        transform: translateY(-8vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+      }
+      85% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(105vh) translateX(55px) rotate(420deg);
+        opacity: 0;
+      }
+    }
+
+    /* ─── FLOATING PARTICLES ─── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(105dvh) rotate(0deg); opacity: 0; }
+      8%   { opacity: 1; }
+      92%  { opacity: 1; }
+      100% { transform: translateY(-10dvh) rotate(540deg); opacity: 0; }
+    }
+
+    /* ─── LUXURY CORNER BRACKETS ─── */
+    .corner {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0.8;
+    }
+
+    .corner svg { width: 100%; height: 100%; }
+    .corner.tl { top: max(10px, env(safe-area-inset-top)); left: 10px; }
+    .corner.tr { top: max(10px, env(safe-area-inset-top)); right: 10px; transform: scaleX(-1); }
+    .corner.bl { bottom: max(10px, env(safe-area-inset-bottom)); left: 10px; transform: scaleY(-1); }
+    .corner.br { bottom: max(10px, env(safe-area-inset-bottom)); right: 10px; transform: scale(-1,-1); }
+
+    /* ─── MAIN CONTENT ─── */
+    main {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: max(32px, env(safe-area-inset-top)) 18px max(32px, env(safe-area-inset-bottom));
+      z-index: 10;
+      position: relative;
+    }
+
+    .content-box {
+      width: 100%;
+      max-width: 960px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    /* ─── TITLE WITH CALLIGRAPHY & DOODLE HEARTS ─── */
+    .title-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+
+    .doodle-heart {
+      font-size: clamp(26px, 5vw, 36px);
+      color: #9e1933;
+      user-select: none;
+      animation: floatDoodle 2.8s ease-in-out infinite alternate;
+      line-height: 1;
+    }
+
+    .doodle-heart.right {
+      animation-delay: -1.4s;
+    }
+
+    @keyframes floatDoodle {
+      0%   { transform: translateY(0) rotate(-6deg) scale(0.95); }
+      100% { transform: translateY(-7px) rotate(6deg) scale(1.08); }
+    }
+
+    .page-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(52px, 12vw, 92px);
+      font-weight: 400;
+      color: #5c1428;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 6px rgba(92, 20, 40, 0.12);
+      -webkit-font-smoothing: antialiased;
+      opacity: 1;
+    }
+
+    .page-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(16px, 4vw, 20px);
+      font-weight: 400;
+      color: #7a5040;
+      letter-spacing: 0.03em;
+      margin-bottom: 34px;
+      opacity: 1;
+    }
+
+    /* ─── 4 LUXURY GIFT BOXES GRID ─── */
+    .gifts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+      margin: 0 auto 32px;
+    }
+
+    /* ─── LUXURY GIFT CARD DISPLAY ─── */
+    .gift-card {
+      background: linear-gradient(168deg, rgba(255, 255, 255, 0.98) 0%, rgba(252, 248, 242, 0.92) 100%);
+      border: 1.5px solid var(--gold-border);
+      border-radius: 24px;
+      padding: 24px 14px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow:
+        0 14px 34px rgba(92, 20, 40, 0.10),
+        0 3px 10px rgba(184, 146, 58, 0.14),
+        inset 0 1px 2px rgba(255, 255, 255, 0.95);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      opacity: 1; /* Guaranteed visibility */
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  box-shadow 0.35s ease,
+                  border-color 0.3s ease;
+    }
+
+    .gift-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--gold-rich);
+      box-shadow:
+        0 22px 48px rgba(92, 20, 40, 0.18),
+        0 6px 18px rgba(184, 146, 58, 0.32),
+        inset 0 0 0 1px rgba(212, 168, 67, 0.3);
+    }
+
+    .gift-card:active {
+      transform: scale(0.97);
+    }
+
+    /* Card subtle luxury light-sweep */
+    .gift-card::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -90%;
+      width: 55%;
+      height: 220%;
+      background: linear-gradient(
+        115deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 65%
+      );
+      transform: skewX(-20deg);
+      pointer-events: none;
+      transition: left 0.75s ease;
+    }
+
+    .gift-card:hover::after {
+      left: 140%;
+    }
+
+    /* Opened ribbon status badge */
+    .gift-status-ribbon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 11px;
+      color: var(--burgundy);
+      opacity: 0;
+      transform: scale(0.6);
+      transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .gift-card.unwrapped .gift-status-ribbon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ─── 3D GIFT BOX VISUAL CONTAINER ─── */
+    .gift-visual {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gift-visual svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 12px 18px rgba(50, 12, 22, 0.16));
+      transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .gift-card:hover .gift-visual svg {
+      transform: scale(1.06) translateY(-4px);
+      filter: drop-shadow(0 16px 24px rgba(92, 20, 40, 0.24));
+    }
+
+    /* 3D Lid Pop Animation */
+    .box-lid {
+      transform-origin: 80px 48px;
+      transition: transform 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.35);
+    }
+
+    .gift-card:hover .box-lid {
+      transform: translateY(-8px);
+    }
+
+    .gift-card.opening .box-lid {
+      transform: translateY(-36px) rotate(-6deg) scale(1.06);
+      filter: drop-shadow(0 14px 16px rgba(184, 146, 58, 0.45));
+    }
+
+    /* Dangling Heart Tag Sway */
+    .gift-tag-group {
+      transform-origin: 80px 58px;
+      animation: tagSway 3.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes tagSway {
+      0%   { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+    /* ─── GIFT CARD LABELS & CTA BUTTON ─── */
+    .gift-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .gift-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(17px, 3.8vw, 19px);
+      font-weight: 700;
+      color: #5c1428;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    /* High-contrast luxury unwrap pill button */
+    .unwrap-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      background: linear-gradient(135deg, #b8923a 0%, #e2c27c 50%, #b8923a 100%);
+      background-size: 200% auto;
+      color: #2e0914;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(184, 146, 58, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.25s ease;
+      animation: pillShine 3.5s linear infinite;
+    }
+
+    @keyframes pillShine {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .gift-card:hover .unwrap-btn {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(184, 146, 58, 0.55);
+    }
+
+    /* ─── LOVE LETTER MODAL (BOX 1: IVORY ROMANCE) ─── */
+    .letter-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 6, 12, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 550;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .letter-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .letter-sheet {
+      background: #fdfaf2;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(212, 168, 67, 0.08) 0%, transparent 60%),
+        linear-gradient(to bottom, #fffdfa 0%, #f7f0e3 100%);
+      border: 1.5px solid rgba(184, 146, 58, 0.5);
+      border-radius: 24px;
+      padding: 34px 26px 28px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 88vh;
+      max-height: 88dvh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow:
+        0 28px 75px rgba(35, 8, 16, 0.45),
+        0 4px 16px rgba(184, 146, 58, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+      transform: scale(0.9) translateY(24px);
+      transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+      overflow: hidden;
+    }
+
+    .letter-overlay.open .letter-sheet {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Embossed Crimson Wax Seal */
+    .wax-seal {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 12px;
+      background: radial-gradient(circle at 35% 35%, #a81c38 0%, #6e1024 60%, #460613 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 6px 18px rgba(70, 6, 19, 0.45),
+        0 0 0 2.5px rgba(184, 146, 58, 0.45),
+        inset 0 2px 4px rgba(255, 255, 255, 0.35);
+      position: relative;
+      flex-shrink: 0;
+      animation: floatBadge 2.8s ease-in-out infinite;
+    }
+
+    .wax-seal span {
+      font-size: 22px;
+      color: #f7d59b;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+      user-select: none;
+      line-height: 1;
+    }
+
+    .letter-header {
+      text-align: center;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+      border-bottom: 1px dashed rgba(184, 146, 58, 0.35);
+      padding-bottom: 12px;
+    }
+
+    .letter-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      background: rgba(184, 146, 58, 0.16);
+      border: 1px solid rgba(184, 146, 58, 0.4);
+      padding: 4px 14px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .letter-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(34px, 8.5vw, 44px);
+      font-weight: 400;
+      color: #5c1428;
+      line-height: 1.25;
+      text-shadow: 0 1px 2px rgba(92,20,40,0.1);
+    }
+
+    /* Scrollable Letter Body */
+    .letter-body-wrap {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-right: 8px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .letter-body-wrap::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .letter-body-wrap::-webkit-scrollbar-thumb {
+      background: rgba(184, 146, 58, 0.4);
+      border-radius: 4px;
+    }
+
+    .letter-salutation {
+      font-family: 'Great Vibes', cursive;
+      font-size: 28px;
+      color: #5c1428;
+      margin-bottom: 10px;
+    }
+
+    .letter-paragraph {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(17.5px, 4.2vw, 19.5px);
+      line-height: 1.7;
+      color: #3b1b22;
+      margin-bottom: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .letter-signoff {
+      text-align: right;
+      margin-top: 18px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 30px;
+      color: #5c1428;
+    }
+
+    .letter-signoff-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 32px;
+      color: #9e1933;
+      margin-top: 2px;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-fold-letter {
+      background: linear-gradient(135deg, var(--burgundy-deep) 0%, var(--burgundy) 100%);
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 168, 67, 0.45);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 13px 26px;
+      min-height: 48px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(92, 20, 40, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    .btn-fold-letter:active {
+      transform: scale(0.97);
+    }
+
+    /* ─── OUR LITTLE MOMENTS MODAL (BOX 2) ─── */
+    .moments-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 6, 12, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 550;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .moments-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .moments-sheet {
+      background: linear-gradient(175deg, #fffdfa 0%, #faf3e8 100%);
+      border: 1.5px solid rgba(184, 146, 58, 0.5);
+      border-radius: 26px;
+      padding: 30px 18px 24px;
+      width: 100%;
+      max-width: 490px;
+      max-height: 88vh;
+      max-height: 88dvh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow:
+        0 28px 75px rgba(35, 8, 16, 0.45),
+        0 4px 16px rgba(184, 146, 58, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+      transform: scale(0.9) translateY(24px);
+      transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+      overflow: hidden;
+    }
+
+    .moments-overlay.open .moments-sheet {
+      transform: scale(1) translateY(0);
+    }
+
+    .moments-header {
+      text-align: center;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+
+    .moments-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      background: rgba(184, 146, 58, 0.16);
+      border: 1px solid rgba(184, 146, 58, 0.4);
+      padding: 4px 14px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .moments-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(34px, 8.5vw, 44px);
+      font-weight: 400;
+      color: #5c1428;
+      line-height: 1.25;
+      margin-bottom: 4px;
+      text-shadow: 0 1px 2px rgba(92,20,40,0.1);
+    }
+
+    .moments-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: #7a5040;
+    }
+
+    /* Scrollable Polaroids Scrapbook */
+    .moments-scroll {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 4px 14px;
+      margin-bottom: 14px;
+    }
+
+    .moments-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .moments-scroll::-webkit-scrollbar-thumb {
+      background: rgba(184, 146, 58, 0.4);
+      border-radius: 4px;
+    }
+
+    .polaroids-grid-top {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+
+    .polaroid-card {
+      background: #ffffff;
+      border: 1px solid rgba(184, 146, 58, 0.28);
+      border-radius: 10px;
+      padding: 6px 6px 10px;
+      box-shadow:
+        0 6px 18px rgba(70, 16, 26, 0.10),
+        0 1px 3px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28), box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .polaroid-card:nth-child(1) { transform: rotate(-1.5deg); }
+    .polaroid-card:nth-child(2) { transform: rotate(1deg); }
+    .polaroid-card:nth-child(3) { transform: rotate(-1deg); }
+
+    .polaroid-card:hover {
+      transform: translateY(-4px) scale(1.06) rotate(0deg) !important;
+      box-shadow: 0 12px 26px rgba(92, 20, 40, 0.22);
+      border-color: var(--gold);
+      z-index: 5;
+    }
+
+    .polaroid-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1.08;
+      overflow: hidden;
+      border-radius: 6px;
+      background: #eee;
+    }
+
+    .polaroid-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .polaroid-card:nth-child(1) .polaroid-img-wrap img {
+      object-position: center 66%;
+    }
+
+    .polaroid-card:nth-child(2) .polaroid-img-wrap img {
+      object-position: center 22%;
+    }
+
+    .polaroid-card:nth-child(3) .polaroid-img-wrap img {
+      object-position: center 32%;
+    }
+
+    .polaroid-card:hover .polaroid-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .polaroid-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      font-weight: 600;
+      color: #5c1428;
+      margin-top: 6px;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+
+    /* Feature Polaroid (Bottom) */
+    .polaroid-feature {
+      background: #ffffff;
+      border: 1px solid rgba(184, 146, 58, 0.28);
+      border-radius: 12px;
+      padding: 7px 7px 11px;
+      box-shadow:
+        0 8px 22px rgba(70, 16, 26, 0.10),
+        0 2px 4px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28), box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .polaroid-feature:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 14px 30px rgba(92, 20, 40, 0.22);
+      border-color: var(--gold);
+    }
+
+    .polaroid-feature .polaroid-img-wrap {
+      aspect-ratio: 2.1 / 1;
+    }
+
+    .polaroid-feature .polaroid-caption {
+      font-size: 15px;
+      margin-top: 7px;
+    }
+
+    .btn-close-moments {
+      background: linear-gradient(135deg, var(--burgundy-deep) 0%, var(--burgundy) 100%);
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 168, 67, 0.45);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 13px 26px;
+      min-height: 48px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(92, 20, 40, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    .btn-close-moments:active {
+      transform: scale(0.97);
+    }
+
+    /* ─── PHOTO LIGHTBOX ─── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(14, 4, 8, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      z-index: 650;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-card {
+      background: #ffffff;
+      padding: 10px 10px 16px;
+      border-radius: 18px;
+      max-width: 90vw;
+      max-height: 85vh;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1.5px rgba(184,146,58,0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.25);
+    }
+
+    .lightbox-overlay.open .lightbox-card {
+      transform: scale(1);
+    }
+
+    .lightbox-card img {
+      max-width: 100%;
+      max-height: 62vh;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .lightbox-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      font-weight: 600;
+      color: #5c1428;
+      margin-top: 10px;
+    }
+
+    .lightbox-hint {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #9c7329;
+      margin-top: 4px;
+    }
+
+    /* ─── WHY I LOVE YOU MODAL (BOX 3) ─── */
+    .reasons-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 6, 12, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 550;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .reasons-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reasons-sheet {
+      background: linear-gradient(175deg, #fffdfa 0%, #faf3e8 100%);
+      border: 1.5px solid rgba(184, 146, 58, 0.5);
+      border-radius: 26px;
+      padding: 26px 16px 20px;
+      width: 100%;
+      max-width: 490px;
+      max-height: 88vh;
+      max-height: 88dvh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow:
+        0 28px 75px rgba(35, 8, 16, 0.45),
+        0 4px 16px rgba(184, 146, 58, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+      transform: scale(0.9) translateY(24px);
+      transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+      overflow: hidden;
+    }
+
+    .reasons-overlay.open .reasons-sheet {
+      transform: scale(1) translateY(0);
+    }
+
+    .reasons-header {
+      text-align: center;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .reasons-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      background: rgba(184, 146, 58, 0.16);
+      border: 1px solid rgba(184, 146, 58, 0.4);
+      padding: 4px 14px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .reasons-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(34px, 8.5vw, 44px);
+      font-weight: 400;
+      color: #5c1428;
+      line-height: 1.25;
+      margin-bottom: 2px;
+      text-shadow: 0 1px 2px rgba(92,20,40,0.1);
+    }
+
+    .reasons-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #7a5040;
+    }
+
+    .btn-reveal-all {
+      background: transparent;
+      border: 1px dashed rgba(184, 146, 58, 0.45);
+      color: #7a5040;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      margin: 6px auto 10px;
+      display: inline-block;
+      transition: all 0.25s ease;
+    }
+
+    .btn-reveal-all:hover {
+      background: rgba(184, 146, 58, 0.12);
+      color: var(--burgundy);
+      border-color: var(--gold);
+    }
+
+    /* Scrollable Reasons Grid */
+    .reasons-scroll {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 4px 12px;
+      margin-bottom: 10px;
+    }
+
+    .reasons-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .reasons-scroll::-webkit-scrollbar-thumb {
+      background: rgba(184, 146, 58, 0.4);
+      border-radius: 4px;
+    }
+
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+    }
+
+    .reason-card {
+      background: #ffffff;
+      border: 1.2px solid rgba(184, 146, 58, 0.35);
+      border-radius: 14px;
+      padding: 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 110px;
+      position: relative;
+      cursor: pointer;
+      box-shadow:
+        0 6px 16px rgba(70, 16, 26, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+                  box-shadow 0.25s ease,
+                  border-color 0.25s ease,
+                  background 0.3s ease;
+      overflow: hidden;
+    }
+
+    .reason-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      border-color: var(--gold);
+      box-shadow: 0 10px 24px rgba(92, 20, 40, 0.16);
+    }
+
+    .reason-card:active {
+      transform: scale(0.96);
+    }
+
+    /* Closed state with pulsing heart */
+    .reason-card.closed {
+      background: linear-gradient(135deg, #fffcf7 0%, #fcf5e8 100%);
+    }
+
+    .reason-card.closed .reason-content {
+      display: none;
+    }
+
+    .reason-card.closed .reason-cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .reason-card.revealed .reason-cover {
+      display: none;
+    }
+
+    .reason-card.revealed {
+      background: #ffffff;
+      border-color: rgba(184, 146, 58, 0.55);
+      animation: popCard 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    @keyframes popCard {
+      0%   { transform: scale(0.92); }
+      60%  { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    .cover-heart {
+      font-size: 26px;
+      color: #9e1933;
+      animation: pulseCoverHeart 2.2s ease-in-out infinite alternate;
+      line-height: 1;
+    }
+
+    @keyframes pulseCoverHeart {
+      0%   { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(158, 25, 51, 0.25)); }
+      100% { transform: scale(1.15); filter: drop-shadow(0 4px 8px rgba(158, 25, 51, 0.45)); }
+    }
+
+    .cover-tap-hint {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9c7329;
+    }
+
+    /* Revealed Reason Content */
+    .reason-badge {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #9e1933;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .reason-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(14px, 3.6vw, 16px);
+      font-weight: 600;
+      color: #3b1420;
+      line-height: 1.4;
+      letter-spacing: 0.01em;
+    }
+
+    .reason-card-secret {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #fffafc 0%, #fef2f6 100%) !important;
+      border: 1.5px dashed rgba(184, 146, 58, 0.55);
+      min-height: 95px;
+    }
+
+    .reason-card-secret.revealed {
+      background: linear-gradient(135deg, #fff8fb 0%, #fce9f0 100%) !important;
+      border-style: solid;
+      border-color: rgba(184, 146, 58, 0.7);
+    }
+
+    .reasons-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      align-items: center;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .btn-close-reasons {
+      background: linear-gradient(135deg, var(--burgundy-deep) 0%, var(--burgundy) 100%);
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 168, 67, 0.45);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 13px 26px;
+      min-height: 48px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(92, 20, 40, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    .btn-close-reasons:active {
+      transform: scale(0.97);
+    }
+
+    /* ─── PROPOSAL MODAL (BOX 4: MIDNIGHT TREASURE) ─── */
+    .proposal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 5, 12, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      z-index: 550;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .proposal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .proposal-sheet {
+      background: linear-gradient(175deg, #fffdfa 0%, #faf3e8 100%);
+      border: 1.5px solid rgba(184, 146, 58, 0.55);
+      border-radius: 28px;
+      padding: 32px 22px 26px;
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+      position: relative;
+      box-shadow:
+        0 28px 75px rgba(35, 8, 16, 0.48),
+        0 4px 18px rgba(184, 146, 58, 0.28),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+      transform: scale(0.9) translateY(24px);
+      transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+      overflow: hidden;
+    }
+
+    .proposal-overlay.open .proposal-sheet {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Diamond Ring Display */
+    .ring-stage {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-halo {
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(235, 205, 135, 0.45) 0%, rgba(200, 160, 80, 0.15) 50%, transparent 70%);
+      animation: ringHaloPulse 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes ringHaloPulse {
+      0%   { transform: scale(0.92); opacity: 0.6; }
+      100% { transform: scale(1.15); opacity: 1; }
+    }
+
+    .ring-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 10px 18px rgba(60, 14, 24, 0.25));
+      animation: floatRing 3.5s ease-in-out infinite;
+    }
+
+    @keyframes floatRing {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-6px) rotate(2deg); }
+    }
+
+    .proposal-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      background: rgba(184, 146, 58, 0.16);
+      border: 1px solid rgba(184, 146, 58, 0.4);
+      padding: 4px 14px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .proposal-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(34px, 8.5vw, 44px);
+      font-weight: 400;
+      color: #5c1428;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      text-shadow: 0 1px 2px rgba(92,20,40,0.1);
+    }
+
+    .proposal-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16.5px;
+      color: #7a5040;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    /* Proposal Buttons Container */
+    .proposal-btn-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      position: relative;
+      min-height: 52px;
+    }
+
+    .btn-proposal-yes {
+      background: linear-gradient(135deg, var(--burgundy-deep) 0%, var(--burgundy) 100%);
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 168, 67, 0.5);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      min-height: 50px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(92, 20, 40, 0.38);
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .btn-proposal-yes:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px rgba(92, 20, 40, 0.5);
+    }
+
+    .btn-proposal-yes:active {
+      transform: scale(0.97);
+    }
+
+    .btn-proposal-no {
+      background: rgba(255, 255, 255, 0.85);
+      color: #7a5040;
+      border: 1px solid rgba(184, 146, 58, 0.4);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 22px;
+      min-height: 50px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      flex: 0 0 auto;
+    }
+
+    /* Accepted Celebration State */
+    .proposal-accepted {
+      display: none;
+      animation: popAccepted 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.25) forwards;
+    }
+
+    .proposal-accepted.active {
+      display: block;
+    }
+
+    @keyframes popAccepted {
+      0%   { opacity: 0; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .accepted-badge {
+      font-size: 44px;
+      margin-bottom: 8px;
+      display: inline-block;
+      animation: floatBadge 2.2s ease-in-out infinite;
+    }
+
+    .accepted-heading {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(38px, 9vw, 50px);
+      font-weight: 400;
+      color: #5c1428;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .accepted-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      line-height: 1.6;
+      color: #3b1420;
+      margin-bottom: 22px;
+    }
+
+    /* ─── SURPRISE UNWRAP MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(22, 8, 14, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: linear-gradient(175deg, #fffdfa 0%, #faf4eb 100%);
+      border: 1.5px solid var(--gold-border);
+      border-radius: 28px;
+      padding: 38px 26px 32px;
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      box-shadow:
+        0 26px 70px rgba(35, 10, 18, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.18);
+      position: relative;
+    }
+
+    .modal-overlay.open .modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-badge {
+      display: inline-block;
+      font-size: 42px;
+      margin-bottom: 10px;
+      animation: floatBadge 2.4s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-6px) scale(1.08); }
+    }
+
+    .modal-tag {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      background: rgba(184, 146, 58, 0.18);
+      border: 1px solid rgba(184, 146, 58, 0.45);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .modal-heading {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(34px, 8.5vw, 46px);
+      font-weight: 400;
+      color: #5c1428;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      text-shadow: 0 1px 3px rgba(92,20,40,0.1);
+    }
+
+    .modal-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19.5px;
+      color: #6a4b3d;
+      line-height: 1.6;
+      margin-bottom: 26px;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-claim-gift {
+      background: linear-gradient(135deg, var(--burgundy-deep) 0%, var(--burgundy) 100%);
+      color: var(--gold-light);
+      border: 1px solid rgba(212, 168, 67, 0.4);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      min-height: 48px;
+      width: 100%;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(92, 20, 40, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-claim-gift:active {
+      transform: scale(0.97);
+    }
+
+    .btn-explore-others {
+      background: transparent;
+      color: #7a5040;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 6px 12px;
+      transition: color 0.2s;
+    }
+
+    .btn-explore-others:hover {
+      color: var(--burgundy);
+    }
+
+    /* ─── FOOTER LINK ─── */
+    .footer-touch {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16.5px;
+      color: #7a5040;
+      margin-top: 14px;
+      opacity: 1;
+    }
+
+    .back-link {
+      color: #7a5040;
+      text-decoration: none;
+      font-style: italic;
+      transition: color 0.25s ease;
+      opacity: 0.9;
+    }
+
+    .back-link:hover {
+      color: #5c1428;
+      opacity: 1;
+    }
+
+    .footer-touch span {
+      color: #9e1933;
+      display: inline-block;
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.22); }
+    }
+
+    /* ─── CONFETTI / BURST PARTICLES ─── */
+    .tap-sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 600;
+      user-select: none;
+      font-size: 20px;
+      animation: popFloat 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes popFloat {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.5) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--rot));
+      }
+    }
+
+    /* ─── MOBILE VIEWPORT OPTIMIZATION ─── */
+    @media (max-width: 768px) {
+      .gifts-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        max-width: 440px;
+      }
+
+      .gift-card {
+        padding: 18px 10px 16px;
+        border-radius: 20px;
+      }
+
+      .gift-visual {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 8px;
+      }
+
+      .gift-name {
+        font-size: 16.5px;
+        margin-bottom: 6px;
+      }
+
+      .unwrap-btn {
+        font-size: 9px;
+        padding: 6px 12px;
+      }
+
+      .corner {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .gifts-grid {
+        gap: 10px;
+      }
+
+      .gift-visual {
+        width: 100px;
+        height: 100px;
+      }
+
+      .unwrap-btn {
+        font-size: 8.5px;
+        padding: 5px 9px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ ANIMATED AMBIENT GLOW MESH ═══ -->
+  <div class="ambient-mesh">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+
+  <!-- ═══ FALLING ROMANTIC PETALS & SPARKLES ═══ -->
+  <div class="petals-layer" id="petalsLayer"></div>
+
+  <!-- ═══ FLOATING PARTICLES ═══ -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ═══ CORNER BRACKETS ═══ -->
+  <div class="corner tl">
+    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 48 L2 2 L48 2" stroke="#b8923a" stroke-width="1.3" stroke-linecap="round"/>
+      <circle cx="2" cy="2" r="2.5" fill="#b8923a"/>
+    </svg>
+  </div>
+  <div class="corner tr">
+    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 48 L2 2 L48 2" stroke="#b8923a" stroke-width="1.3" stroke-linecap="round"/>
+      <circle cx="2" cy="2" r="2.5" fill="#b8923a"/>
+    </svg>
+  </div>
+  <div class="corner bl">
+    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 48 L2 2 L48 2" stroke="#b8923a" stroke-width="1.3" stroke-linecap="round"/>
+      <circle cx="2" cy="2" r="2.5" fill="#b8923a"/>
+    </svg>
+  </div>
+  <div class="corner br">
+    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 48 L2 2 L48 2" stroke="#b8923a" stroke-width="1.3" stroke-linecap="round"/>
+      <circle cx="2" cy="2" r="2.5" fill="#b8923a"/>
+    </svg>
+  </div>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main>
+    <div class="content-box">
+
+      <!-- Title with calligraphy & doodle hearts -->
+      <div class="title-wrapper">
+        <span class="doodle-heart left">♡</span>
+        <h1 class="page-title">choose a gift</h1>
+        <span class="doodle-heart right">♡</span>
+      </div>
+
+      <p class="page-subtitle">Tap any box to reveal what I have planned for you</p>
+
+      <!-- 4 Hyper-Realistic 3D Gift Boxes Grid -->
+      <div class="gifts-grid">
+
+        <!-- ══════════════════════════════════════════════════════
+             BOX 1: Ivory Romance (Ivory Box + Ruby Velvet Bow + Tag)
+             ══════════════════════════════════════════════════════ -->
+        <div class="gift-card" data-gift="1">
+          <div class="gift-status-ribbon">♥ Unwrapped</div>
+          <div class="gift-visual">
+            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Ground Shadow -->
+                <radialGradient id="shadow1" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#420e18" stop-opacity="0.32"/>
+                  <stop offset="60%" stop-color="#420e18" stop-opacity="0.12"/>
+                  <stop offset="100%" stop-color="#420e18" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Box Gradients (Ivory) -->
+                <linearGradient id="ivoryLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f2ebe0"/>
+                  <stop offset="100%" stop-color="#ded2c1"/>
+                </linearGradient>
+                <linearGradient id="ivoryRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#f5eee3"/>
+                </linearGradient>
+                <linearGradient id="ivoryTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#fcf7ee"/>
+                </linearGradient>
+                <linearGradient id="ivoryLidLeft" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#e2d6c4"/>
+                  <stop offset="100%" stop-color="#cbbca7"/>
+                </linearGradient>
+                <linearGradient id="ivoryLidRight" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#f9f2e7"/>
+                  <stop offset="100%" stop-color="#e8dccc"/>
+                </linearGradient>
+                <!-- Ruby Ribbon Gradients -->
+                <linearGradient id="rubyRibbonV" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#730e22"/>
+                  <stop offset="50%" stop-color="#a81936"/>
+                  <stop offset="100%" stop-color="#690a1e"/>
+                </linearGradient>
+                <linearGradient id="rubyRibbonRight" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#93152e"/>
+                  <stop offset="50%" stop-color="#c22646"/>
+                  <stop offset="100%" stop-color="#801127"/>
+                </linearGradient>
+                <radialGradient id="rubyBowGlow" cx="50%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#d63153"/>
+                  <stop offset="55%" stop-color="#991530"/>
+                  <stop offset="100%" stop-color="#540717"/>
+                </radialGradient>
+              </defs>
+
+              <!-- Ground Soft Drop Shadow -->
+              <ellipse cx="80" cy="146" rx="54" ry="12" fill="url(#shadow1)"/>
+
+              <!-- 3D Box Body -->
+              <g class="box-body">
+                <!-- Left Face -->
+                <polygon points="28,78 80,104 80,146 28,120" fill="url(#ivoryLeft)"/>
+                <!-- Left Face Ribbon -->
+                <polygon points="50,89 58,93 58,135 50,131" fill="url(#rubyRibbonV)"/>
+                <!-- Right Face -->
+                <polygon points="80,104 132,78 132,120 80,146" fill="url(#ivoryRight)"/>
+                <!-- Right Face Ribbon -->
+                <polygon points="102,93 110,89 110,131 102,135" fill="url(#rubyRibbonRight)"/>
+                <!-- Center vertical corner highlight -->
+                <line x1="80" y1="104" x2="80" y2="146" stroke="#ffffff" stroke-width="0.8" opacity="0.6"/>
+              </g>
+
+              <!-- 3D Box Lid (Lifts Up on Tap/Hover) -->
+              <g class="box-lid">
+                <!-- Lid Rim Left Face -->
+                <polygon points="24,75 80,102 80,113 24,86" fill="url(#ivoryLidLeft)"/>
+                <!-- Lid Rim Left Ribbon -->
+                <polygon points="48,87 56,91 56,102 48,98" fill="url(#rubyRibbonV)"/>
+                <!-- Lid Rim Right Face -->
+                <polygon points="80,102 136,75 136,86 80,113" fill="url(#ivoryLidRight)"/>
+                <!-- Lid Rim Right Ribbon -->
+                <polygon points="104,91 112,87 112,98 104,102" fill="url(#rubyRibbonRight)"/>
+
+                <!-- Lid Top Diamond Face -->
+                <polygon points="80,48 136,75 80,102 24,75" fill="url(#ivoryTop)" stroke="#ecdcc9" stroke-width="0.8"/>
+
+                <!-- Lid Ribbons Cross (Top) -->
+                <!-- Top Left-to-Right diagonal ribbon -->
+                <polygon points="48,63 56,59 112,87 104,91" fill="url(#rubyRibbonRight)"/>
+                <!-- Top Right-to-Left diagonal ribbon -->
+                <polygon points="104,59 112,63 56,91 48,87" fill="url(#rubyRibbonV)"/>
+
+                <!-- Dangling Heart Tag Group -->
+                <g class="gift-tag-group">
+                  <!-- Tag String -->
+                  <path d="M80 68 Q90 76 96 86" stroke="#b8923a" stroke-width="1.2" fill="none"/>
+                  <!-- Tag Parchment -->
+                  <g transform="translate(90, 84) rotate(14)">
+                    <rect x="0" y="0" width="18" height="24" rx="3" fill="#fffdfa" stroke="#d4a843" stroke-width="1"/>
+                    <circle cx="9" cy="4" r="1.5" fill="#b8923a"/>
+                    <!-- Ruby Heart on Tag -->
+                    <path d="M9 11 C7 8 4 9.5 5.5 13 L9 17 L12.5 13 C14 9.5 11 8 9 11 Z" fill="#9e1933"/>
+                  </g>
+                </g>
+
+                <!-- Volumetric Ruby Bow -->
+                <g class="box-bow">
+                  <!-- Left Loop -->
+                  <path d="M80 62 C62 38 32 40 44 56 C52 66 74 65 80 62 Z" fill="url(#rubyBowGlow)"/>
+                  <path d="M46 54 C54 48 68 54 78 61" stroke="#ff6b87" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                  <!-- Right Loop -->
+                  <path d="M80 62 C98 38 128 40 116 56 C108 66 86 65 80 62 Z" fill="url(#rubyBowGlow)"/>
+                  <path d="M114 54 C106 48 92 54 82 61" stroke="#ff6b87" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                  <!-- Ribbon Tails -->
+                  <path d="M76 65 C68 76 56 86 52 96 C50 101 54 102 57 97 C64 87 74 74 78 67 Z" fill="#8c1228"/>
+                  <path d="M84 65 C92 76 104 86 108 96 C110 101 106 102 103 97 C96 87 86 74 82 67 Z" fill="#a41934"/>
+                  <!-- Center Bow Knot -->
+                  <ellipse cx="80" cy="62" rx="7" ry="6" fill="#ba1e3c"/>
+                  <ellipse cx="80" cy="61" rx="4" ry="3" fill="#ff728e" opacity="0.5"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="gift-meta">
+            <h2 class="gift-name">Ivory Romance</h2>
+            <div class="unwrap-btn">✦ Tap to unwrap ✦</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════
+             BOX 2: Blush Serenade (Pink Box + Gold Silk Bow + Tag)
+             ══════════════════════════════════════════════════════ -->
+        <div class="gift-card" data-gift="2">
+          <div class="gift-status-ribbon">♥ Unwrapped</div>
+          <div class="gift-visual">
+            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="shadow2" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#4a1824" stop-opacity="0.3"/>
+                  <stop offset="60%" stop-color="#4a1824" stop-opacity="0.1"/>
+                  <stop offset="100%" stop-color="#4a1824" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Blush Pink Box Gradients -->
+                <linearGradient id="blushLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f8c1ce"/>
+                  <stop offset="100%" stop-color="#e59eaf"/>
+                </linearGradient>
+                <linearGradient id="blushRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fde5eb"/>
+                  <stop offset="100%" stop-color="#f7b9c7"/>
+                </linearGradient>
+                <linearGradient id="blushTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffeff3"/>
+                  <stop offset="100%" stop-color="#f8cfd9"/>
+                </linearGradient>
+                <linearGradient id="blushLidLeft" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#e9a6b6"/>
+                  <stop offset="100%" stop-color="#d18a9b"/>
+                </linearGradient>
+                <linearGradient id="blushLidRight" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#fbc7d3"/>
+                  <stop offset="100%" stop-color="#e8a8b8"/>
+                </linearGradient>
+                <!-- Champagne Gold Ribbon Gradients -->
+                <linearGradient id="goldRibbonV" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#ad822b"/>
+                  <stop offset="50%" stop-color="#e0b85a"/>
+                  <stop offset="100%" stop-color="#99701e"/>
+                </linearGradient>
+                <linearGradient id="goldRibbonRight" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#c99f3d"/>
+                  <stop offset="50%" stop-color="#f3d482"/>
+                  <stop offset="100%" stop-color="#b3892c"/>
+                </linearGradient>
+                <radialGradient id="goldBowGlow" cx="50%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#fff2be"/>
+                  <stop offset="45%" stop-color="#dfb657"/>
+                  <stop offset="100%" stop-color="#946a18"/>
+                </radialGradient>
+              </defs>
+
+              <ellipse cx="80" cy="146" rx="54" ry="12" fill="url(#shadow2)"/>
+
+              <!-- Box Body -->
+              <g class="box-body">
+                <polygon points="28,78 80,104 80,146 28,120" fill="url(#blushLeft)"/>
+                <polygon points="50,89 58,93 58,135 50,131" fill="url(#goldRibbonV)"/>
+                <polygon points="80,104 132,78 132,120 80,146" fill="url(#blushRight)"/>
+                <polygon points="102,93 110,89 110,131 102,135" fill="url(#goldRibbonRight)"/>
+                <line x1="80" y1="104" x2="80" y2="146" stroke="#ffffff" stroke-width="0.8" opacity="0.6"/>
+              </g>
+
+              <!-- Box Lid -->
+              <g class="box-lid">
+                <polygon points="24,75 80,102 80,113 24,86" fill="url(#blushLidLeft)"/>
+                <polygon points="48,87 56,91 56,102 48,98" fill="url(#goldRibbonV)"/>
+                <polygon points="80,102 136,75 136,86 80,113" fill="url(#blushLidRight)"/>
+                <polygon points="104,91 112,87 112,98 104,102" fill="url(#goldRibbonRight)"/>
+
+                <polygon points="80,48 136,75 80,102 24,75" fill="url(#blushTop)" stroke="#f0b8c6" stroke-width="0.8"/>
+
+                <polygon points="48,63 56,59 112,87 104,91" fill="url(#goldRibbonRight)"/>
+                <polygon points="104,59 112,63 56,91 48,87" fill="url(#goldRibbonV)"/>
+
+                <!-- Dangling Heart Tag Group -->
+                <g class="gift-tag-group">
+                  <path d="M80 68 Q90 76 96 86" stroke="#b8923a" stroke-width="1.2" fill="none"/>
+                  <g transform="translate(90, 84) rotate(14)">
+                    <rect x="0" y="0" width="18" height="24" rx="3" fill="#fffdfa" stroke="#d4a843" stroke-width="1"/>
+                    <circle cx="9" cy="4" r="1.5" fill="#b8923a"/>
+                    <!-- Champagne Gold Heart on Tag -->
+                    <path d="M9 11 C7 8 4 9.5 5.5 13 L9 17 L12.5 13 C14 9.5 11 8 9 11 Z" fill="#b8923a"/>
+                  </g>
+                </g>
+
+                <!-- Volumetric Gold Bow -->
+                <g class="box-bow">
+                  <path d="M80 62 C62 38 32 40 44 56 C52 66 74 65 80 62 Z" fill="url(#goldBowGlow)"/>
+                  <path d="M46 54 C54 48 68 54 78 61" stroke="#fff5d4" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+                  <path d="M80 62 C98 38 128 40 116 56 C108 66 86 65 80 62 Z" fill="url(#goldBowGlow)"/>
+                  <path d="M114 54 C106 48 92 54 82 61" stroke="#fff5d4" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+                  <path d="M76 65 C68 76 56 86 52 96 C50 101 54 102 57 97 C64 87 74 74 78 67 Z" fill="#ab8228"/>
+                  <path d="M84 65 C92 76 104 86 108 96 C110 101 106 102 103 97 C96 87 86 74 82 67 Z" fill="#c99e38"/>
+                  <ellipse cx="80" cy="62" rx="7" ry="6" fill="#dfb555"/>
+                  <ellipse cx="80" cy="61" rx="4" ry="3" fill="#fff5d4" opacity="0.7"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="gift-meta">
+            <h2 class="gift-name">Blush Serenade</h2>
+            <div class="unwrap-btn">✦ Tap to unwrap ✦</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════
+             BOX 3: Royal Velvet (Burgundy Box + Gold Bow + Tag)
+             ══════════════════════════════════════════════════════ -->
+        <div class="gift-card" data-gift="3">
+          <div class="gift-status-ribbon">♥ Unwrapped</div>
+          <div class="gift-visual">
+            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="shadow3" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#360812" stop-opacity="0.36"/>
+                  <stop offset="60%" stop-color="#360812" stop-opacity="0.14"/>
+                  <stop offset="100%" stop-color="#360812" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Royal Burgundy Box Gradients -->
+                <linearGradient id="burgundyLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#6e1327"/>
+                  <stop offset="100%" stop-color="#460714"/>
+                </linearGradient>
+                <linearGradient id="burgundyRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#8e1c34"/>
+                  <stop offset="100%" stop-color="#580b1b"/>
+                </linearGradient>
+                <linearGradient id="burgundyTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#992039"/>
+                  <stop offset="100%" stop-color="#691124"/>
+                </linearGradient>
+                <linearGradient id="burgundyLidLeft" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#560a1a"/>
+                  <stop offset="100%" stop-color="#34030d"/>
+                </linearGradient>
+                <linearGradient id="burgundyLidRight" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#79142a"/>
+                  <stop offset="100%" stop-color="#4a0715"/>
+                </linearGradient>
+              </defs>
+
+              <ellipse cx="80" cy="146" rx="54" ry="12" fill="url(#shadow3)"/>
+
+              <!-- Box Body -->
+              <g class="box-body">
+                <polygon points="28,78 80,104 80,146 28,120" fill="url(#burgundyLeft)"/>
+                <polygon points="50,89 58,93 58,135 50,131" fill="url(#goldRibbonV)"/>
+                <polygon points="80,104 132,78 132,120 80,146" fill="url(#burgundyRight)"/>
+                <polygon points="102,93 110,89 110,131 102,135" fill="url(#goldRibbonRight)"/>
+                <line x1="80" y1="104" x2="80" y2="146" stroke="#b0324e" stroke-width="0.8" opacity="0.5"/>
+              </g>
+
+              <!-- Box Lid -->
+              <g class="box-lid">
+                <polygon points="24,75 80,102 80,113 24,86" fill="url(#burgundyLidLeft)"/>
+                <polygon points="48,87 56,91 56,102 48,98" fill="url(#goldRibbonV)"/>
+                <polygon points="80,102 136,75 136,86 80,113" fill="url(#burgundyLidRight)"/>
+                <polygon points="104,91 112,87 112,98 104,102" fill="url(#goldRibbonRight)"/>
+
+                <polygon points="80,48 136,75 80,102 24,75" fill="url(#burgundyTop)" stroke="#aa2c46" stroke-width="0.8"/>
+
+                <polygon points="48,63 56,59 112,87 104,91" fill="url(#goldRibbonRight)"/>
+                <polygon points="104,59 112,63 56,91 48,87" fill="url(#goldRibbonV)"/>
+
+                <!-- Dangling Heart Tag Group -->
+                <g class="gift-tag-group">
+                  <path d="M80 68 Q90 76 96 86" stroke="#b8923a" stroke-width="1.2" fill="none"/>
+                  <g transform="translate(90, 84) rotate(14)">
+                    <rect x="0" y="0" width="18" height="24" rx="3" fill="#fffdfa" stroke="#d4a843" stroke-width="1"/>
+                    <circle cx="9" cy="4" r="1.5" fill="#b8923a"/>
+                    <!-- Burgundy Heart on Tag -->
+                    <path d="M9 11 C7 8 4 9.5 5.5 13 L9 17 L12.5 13 C14 9.5 11 8 9 11 Z" fill="#6e1327"/>
+                  </g>
+                </g>
+
+                <!-- Volumetric Gold Bow -->
+                <g class="box-bow">
+                  <path d="M80 62 C62 38 32 40 44 56 C52 66 74 65 80 62 Z" fill="url(#goldBowGlow)"/>
+                  <path d="M46 54 C54 48 68 54 78 61" stroke="#fff5d4" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+                  <path d="M80 62 C98 38 128 40 116 56 C108 66 86 65 80 62 Z" fill="url(#goldBowGlow)"/>
+                  <path d="M114 54 C106 48 92 54 82 61" stroke="#fff5d4" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+                  <path d="M76 65 C68 76 56 86 52 96 C50 101 54 102 57 97 C64 87 74 74 78 67 Z" fill="#ab8228"/>
+                  <path d="M84 65 C92 76 104 86 108 96 C110 101 106 102 103 97 C96 87 86 74 82 67 Z" fill="#c99e38"/>
+                  <ellipse cx="80" cy="62" rx="7" ry="6" fill="#dfb555"/>
+                  <ellipse cx="80" cy="61" rx="4" ry="3" fill="#fff5d4" opacity="0.7"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="gift-meta">
+            <h2 class="gift-name">Royal Velvet</h2>
+            <div class="unwrap-btn">✦ Tap to unwrap ✦</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════
+             BOX 4: Midnight Obsidian (Dark Onyx + Ruby Ribbon + Tag)
+             ══════════════════════════════════════════════════════ -->
+        <div class="gift-card" data-gift="4">
+          <div class="gift-status-ribbon">♥ Unwrapped</div>
+          <div class="gift-visual">
+            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="shadow4" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#140a10" stop-opacity="0.45"/>
+                  <stop offset="60%" stop-color="#140a10" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="#140a10" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Midnight Onyx Box Gradients -->
+                <linearGradient id="onyxLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#241e22"/>
+                  <stop offset="100%" stop-color="#120e11"/>
+                </linearGradient>
+                <linearGradient id="onyxRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#362f34"/>
+                  <stop offset="100%" stop-color="#1c161b"/>
+                </linearGradient>
+                <linearGradient id="onyxTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#423940"/>
+                  <stop offset="100%" stop-color="#262025"/>
+                </linearGradient>
+                <linearGradient id="onyxLidLeft" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#1e181c"/>
+                  <stop offset="100%" stop-color="#0e0a0d"/>
+                </linearGradient>
+                <linearGradient id="onyxLidRight" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#2e272d"/>
+                  <stop offset="100%" stop-color="#171216"/>
+                </linearGradient>
+              </defs>
+
+              <ellipse cx="80" cy="146" rx="54" ry="12" fill="url(#shadow4)"/>
+
+              <!-- Box Body -->
+              <g class="box-body">
+                <polygon points="28,78 80,104 80,146 28,120" fill="url(#onyxLeft)"/>
+                <polygon points="50,89 58,93 58,135 50,131" fill="url(#rubyRibbonV)"/>
+                <polygon points="80,104 132,78 132,120 80,146" fill="url(#onyxRight)"/>
+                <polygon points="102,93 110,89 110,131 102,135" fill="url(#rubyRibbonRight)"/>
+                <line x1="80" y1="104" x2="80" y2="146" stroke="#544852" stroke-width="0.8" opacity="0.6"/>
+              </g>
+
+              <!-- Box Lid -->
+              <g class="box-lid">
+                <polygon points="24,75 80,102 80,113 24,86" fill="url(#onyxLidLeft)"/>
+                <polygon points="48,87 56,91 56,102 48,98" fill="url(#rubyRibbonV)"/>
+                <polygon points="80,102 136,75 136,86 80,113" fill="url(#onyxLidRight)"/>
+                <polygon points="104,91 112,87 112,98 104,102" fill="url(#rubyRibbonRight)"/>
+
+                <polygon points="80,48 136,75 80,102 24,75" fill="url(#onyxTop)" stroke="#4d414a" stroke-width="0.8"/>
+
+                <polygon points="48,63 56,59 112,87 104,91" fill="url(#rubyRibbonRight)"/>
+                <polygon points="104,59 112,63 56,91 48,87" fill="url(#rubyRibbonV)"/>
+
+                <!-- Dangling Heart Tag Group -->
+                <g class="gift-tag-group">
+                  <path d="M80 68 Q90 76 96 86" stroke="#b8923a" stroke-width="1.2" fill="none"/>
+                  <g transform="translate(90, 84) rotate(14)">
+                    <rect x="0" y="0" width="18" height="24" rx="3" fill="#fffdfa" stroke="#d4a843" stroke-width="1"/>
+                    <circle cx="9" cy="4" r="1.5" fill="#b8923a"/>
+                    <!-- Crimson Heart on Tag -->
+                    <path d="M9 11 C7 8 4 9.5 5.5 13 L9 17 L12.5 13 C14 9.5 11 8 9 11 Z" fill="#9e1933"/>
+                  </g>
+                </g>
+
+                <!-- Volumetric Ruby Bow -->
+                <g class="box-bow">
+                  <path d="M80 62 C62 38 32 40 44 56 C52 66 74 65 80 62 Z" fill="url(#rubyBowGlow)"/>
+                  <path d="M46 54 C54 48 68 54 78 61" stroke="#ff6b87" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                  <path d="M80 62 C98 38 128 40 116 56 C108 66 86 65 80 62 Z" fill="url(#rubyBowGlow)"/>
+                  <path d="M114 54 C106 48 92 54 82 61" stroke="#ff6b87" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                  <path d="M76 65 C68 76 56 86 52 96 C50 101 54 102 57 97 C64 87 74 74 78 67 Z" fill="#8c1228"/>
+                  <path d="M84 65 C92 76 104 86 108 96 C110 101 106 102 103 97 C96 87 86 74 82 67 Z" fill="#a41934"/>
+                  <ellipse cx="80" cy="62" rx="7" ry="6" fill="#ba1e3c"/>
+                  <ellipse cx="80" cy="61" rx="4" ry="3" fill="#ff728e" opacity="0.5"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="gift-meta">
+            <h2 class="gift-name">Midnight Treasure</h2>
+            <div class="unwrap-btn">✦ Tap to unwrap ✦</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Touch -->
+      <p class="footer-touch">
+        <a href="our-time.html" class="back-link">← previous page</a> &nbsp;•&nbsp; with all my love <span>♥</span>
+      </p>
+
+    </div>
+  </main>
+
+  <!-- ═══ BOX 1: LOVE LETTER MODAL ═══ -->
+  <div class="letter-overlay" id="letterModal">
+    <div class="letter-sheet">
+      <!-- Embossed Wax Seal -->
+      <div class="wax-seal">
+        <span>♥</span>
+      </div>
+
+      <!-- Letter Header -->
+      <div class="letter-header">
+        <div class="letter-tag">A Letter From My Heart ♥</div>
+        <h2 class="letter-title">My Betu, Mahi</h2>
+      </div>
+
+      <!-- Scrollable Letter Body -->
+      <div class="letter-body-wrap" id="letterBodyWrap">
+        <div class="letter-salutation">Happy anniversary, my love ♥</div>
+        
+        <p class="letter-paragraph">
+          I still remember how we met: we met on a regular day that quietly turned into my favourite one. Randomly tumhe koi mujhse milane laya and us din se hum ek hogye. <em>&ldquo;Ap insta pr ho apka whatsapp number dedo&rdquo;</em> 😂🤣
+        </p>
+
+        <p class="letter-paragraph">
+          I am so glad that we found each other cz tumhare mujhse milna best gift he mere liye, tumhari smile best medicine and tumhari presence best feeling and hr problem ka solution he mere liye. I love you so much and I am so grateful for every moment we have shared together 😁🥰
+        </p>
+
+        <p class="letter-paragraph">
+          Thank you for being so adorable, kind and loving. I am so lucky to have someone like you in my life. You are my heart, my soul, my world and my everything. I know there are so many flaws in me but u still accepted and loved me for who I am. I promise to always love you, take care of you and to keep a big bunny smile on ur face. I will change myself for my baby and I will become better. I lovee you so much my babyyy girl 🥰😘
+        </p>
+
+        <p class="letter-paragraph">
+          Past me tumhare sath abhi tk jitna bhi smaya spent kra it was so fun and loving and I wish to spent the rest of my life with u my betu 🫣🤭
+        </p>
+
+        <div class="letter-signoff">
+          Forever yours,
+          <div class="letter-signoff-name">Darsheel ♥</div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button class="btn-fold-letter" id="letterFoldBtn">Keep Close To My Heart &nbsp;♥</button>
+    </div>
+  </div>
+
+  <!-- ═══ BOX 2: OUR LITTLE MOMENTS MODAL ═══ -->
+  <div class="moments-overlay" id="momentsModal">
+    <div class="moments-sheet">
+      <!-- Header -->
+      <div class="moments-header">
+        <div class="moments-tag">A Special Memory Box ♥</div>
+        <h2 class="moments-title">Our little moments</h2>
+        <p class="moments-subtitle">The ones I replay when I miss you</p>
+      </div>
+
+      <!-- Scrollable Scrapbook Grid -->
+      <div class="moments-scroll">
+        <!-- Top 3 Polaroids -->
+        <div class="polaroids-grid-top">
+          <!-- 1: Our first selfie -->
+          <div class="polaroid-card">
+            <div class="polaroid-img-wrap">
+              <img src="./assets/moment_img1.jpg" alt="Our first selfie" loading="lazy"/>
+            </div>
+            <div class="polaroid-caption">Our first selfie</div>
+          </div>
+
+          <!-- 2: That smile -->
+          <div class="polaroid-card">
+            <div class="polaroid-img-wrap">
+              <img src="./assets/moment_img2.jpg" alt="That smile" loading="lazy"/>
+            </div>
+            <div class="polaroid-caption">That smile</div>
+          </div>
+
+          <!-- 3: My favourite pic of us -->
+          <div class="polaroid-card">
+            <div class="polaroid-img-wrap">
+              <img src="./assets/moment_img3.jpg" alt="My favourite pic of us" loading="lazy"/>
+            </div>
+            <div class="polaroid-caption">My favourite pic of us</div>
+          </div>
+        </div>
+
+        <!-- Bottom Feature Polaroid: Us being silly -->
+        <div class="polaroid-feature">
+          <div class="polaroid-img-wrap">
+            <img src="./assets/moment_img4.jpg" alt="Us being silly" loading="lazy"/>
+          </div>
+          <div class="polaroid-caption">Us being silly</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; align-items: center; margin-top: 4px;">
+        <button class="btn-close-moments" id="momentsCloseBtn">Keep These Memories Close &nbsp;♥</button>
+        <button class="btn-explore-others" id="momentsExploreBtn">explore other gifts ✦</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Lightbox -->
+  <div class="lightbox-overlay" id="photoLightbox">
+    <div class="lightbox-card">
+      <img id="lightboxImg" src="" alt="Zoomed moment"/>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+      <div class="lightbox-hint">tap anywhere to close ♡</div>
+    </div>
+  </div>
+
+  <!-- ═══ BOX 3: WHY I LOVE YOU MODAL ═══ -->
+  <div class="reasons-overlay" id="reasonsModal">
+    <div class="reasons-sheet">
+      <!-- Header -->
+      <div class="reasons-header">
+        <div class="reasons-tag">Reasons Behind My Smile ♥</div>
+        <h2 class="reasons-title">Why I love you</h2>
+        <p class="reasons-subtitle">Tap each heart to open it</p>
+      </div>
+
+      <!-- Quick Toggle Button -->
+      <div style="text-align: center;">
+        <button class="btn-reveal-all" id="btnRevealAll">✦ open all hearts ✦</button>
+      </div>
+
+      <!-- Scrollable 6 Reasons Grid -->
+      <div class="reasons-scroll">
+        <div class="reasons-grid">
+
+          <!-- Reason 1 -->
+          <div class="reason-card closed" data-reason="1">
+            <div class="reason-cover">
+              <span class="cover-heart">♥</span>
+              <span class="cover-tap-hint">reason 01</span>
+            </div>
+            <div class="reason-content">
+              <div class="reason-badge">Reason 01 ♥</div>
+              <p class="reason-text">Your smile makes my day better.</p>
+            </div>
+          </div>
+
+          <!-- Reason 2 -->
+          <div class="reason-card closed" data-reason="2">
+            <div class="reason-cover">
+              <span class="cover-heart">♥</span>
+              <span class="cover-tap-hint">reason 02</span>
+            </div>
+            <div class="reason-content">
+              <div class="reason-badge">Reason 02 ♥</div>
+              <p class="reason-text">You care for people without ever making it a big deal.</p>
+            </div>
+          </div>
+
+          <!-- Reason 3 -->
+          <div class="reason-card closed" data-reason="3">
+            <div class="reason-cover">
+              <span class="cover-heart">♥</span>
+              <span class="cover-tap-hint">reason 03</span>
+            </div>
+            <div class="reason-content">
+              <div class="reason-badge">Reason 03 ♥</div>
+              <p class="reason-text">You bring joy and happiness into my life by just being in it.</p>
+            </div>
+          </div>
+
+          <!-- Reason 4 -->
+          <div class="reason-card closed" data-reason="4">
+            <div class="reason-cover">
+              <span class="cover-heart">♥</span>
+              <span class="cover-tap-hint">reason 04</span>
+            </div>
+            <div class="reason-content">
+              <div class="reason-badge">Reason 04 ♥</div>
+              <p class="reason-text">You see the best in me, even when I can't.</p>
+            </div>
+          </div>
+
+          <!-- Reason 5 -->
+          <div class="reason-card closed" data-reason="5">
+            <div class="reason-cover">
+              <span class="cover-heart">♥</span>
+              <span class="cover-tap-hint">reason 05</span>
+            </div>
+            <div class="reason-content">
+              <div class="reason-badge">Reason 05 ♥</div>
+              <p class="reason-text">Home feels like wherever you are.</p>
+            </div>
+          </div>
+
+          <!-- Reason 6 -->
+          <div class="reason-card closed" data-reason="6">
+            <div class="reason-cover">
+              <span class="cover-heart">♥</span>
+              <span class="cover-tap-hint">reason 06</span>
+            </div>
+            <div class="reason-content">
+              <div class="reason-badge">Reason 06 ♥</div>
+              <p class="reason-text">Your presence cure all my problems.</p>
+            </div>
+          </div>
+
+          <!-- Reason 7 (Bonus Secret Reason) -->
+          <div class="reason-card closed reason-card-secret" data-reason="7">
+            <div class="reason-cover">
+              <span class="cover-heart">💋</span>
+              <span class="cover-tap-hint">secret reason 07 ✦</span>
+            </div>
+            <div class="reason-content">
+              <div class="reason-badge">Secret Reason 07 🫣🤭</div>
+              <p class="reason-text">There are infinite reasons but I will only tell u those If u kiss me 🫣🤭</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="reasons-actions">
+        <button class="btn-close-reasons" id="reasonsCloseBtn">Keep These In My Heart &nbsp;♥</button>
+        <button class="btn-explore-others" id="reasonsExploreBtn">explore other gifts ✦</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BOX 4: PROPOSAL MODAL (MIDNIGHT TREASURE) ═══ -->
+  <div class="proposal-overlay" id="proposalModal">
+    <div class="proposal-sheet">
+      <!-- Question State -->
+      <div id="proposalQuestionBlock">
+        <!-- Sparkling Diamond Ring Display -->
+        <div class="ring-stage">
+          <div class="ring-halo"></div>
+          <svg class="ring-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="ringGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#faecc7"/>
+                <stop offset="45%" stop-color="#dfb758"/>
+                <stop offset="75%" stop-color="#b6892a"/>
+                <stop offset="100%" stop-color="#e8c977"/>
+              </linearGradient>
+              <linearGradient id="diamondSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="40%" stop-color="#eef8ff"/>
+                <stop offset="80%" stop-color="#c9e8fc"/>
+                <stop offset="100%" stop-color="#a6d5f7"/>
+              </linearGradient>
+              <radialGradient id="cushionGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#4a0f1d" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#4a0f1d" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Ground Shadow / Velvet Cushion -->
+            <ellipse cx="70" cy="120" rx="46" ry="12" fill="url(#cushionGlow)"/>
+
+            <!-- Ring Band (Circular/Oval in Perspective) -->
+            <ellipse cx="70" cy="88" rx="38" ry="32" fill="none" stroke="url(#ringGold)" stroke-width="7"/>
+            <ellipse cx="70" cy="87" rx="36" ry="30" fill="none" stroke="#fff8dc" stroke-width="1.8" opacity="0.8"/>
+
+            <!-- Diamond Prongs & Mount Base -->
+            <path d="M62 58 L78 58 L74 68 L66 68 Z" fill="url(#ringGold)"/>
+            <circle cx="62" cy="54" r="2.5" fill="#faecc7"/>
+            <circle cx="78" cy="54" r="2.5" fill="#faecc7"/>
+            <circle cx="70" cy="52" r="2.5" fill="#faecc7"/>
+
+            <!-- Multi-Faceted Brilliant Cut Diamond -->
+            <g id="diamondGroup">
+              <!-- Crown Top Table -->
+              <polygon points="56,38 84,38 92,48 48,48" fill="#ffffff" stroke="#c0dff8" stroke-width="0.8"/>
+              <!-- Crown Facets -->
+              <polygon points="56,38 70,38 70,48 48,48" fill="#f0f7ff"/>
+              <polygon points="70,38 84,38 92,48 70,48" fill="#d9ecff"/>
+              <!-- Pavilion V Point -->
+              <polygon points="48,48 92,48 70,68" fill="url(#diamondSheen)" stroke="#b8dcfa" stroke-width="0.8"/>
+              <polygon points="48,48 62,48 70,68" fill="#b0d6f5"/>
+              <polygon points="78,48 92,48 70,68" fill="#9ecbf2"/>
+              <polygon points="62,48 78,48 70,68" fill="#eaf4ff"/>
+            </g>
+
+            <!-- Sparkle Flashes -->
+            <path d="M92 34 L94 40 L100 42 L94 44 L92 50 L90 44 L84 42 L90 40 Z" fill="#ffffff"/>
+            <circle cx="92" cy="42" r="1.5" fill="#ffd700"/>
+            <path d="M48 30 L49.5 34 L54 35.5 L49.5 37 L48 41 L46.5 37 L42 35.5 L46.5 34 Z" fill="#ffffff"/>
+          </svg>
+        </div>
+
+        <div class="proposal-tag">The Forever Question 💍</div>
+        <h2 class="proposal-title">Will you be mine for the rest of our life?</h2>
+        <p class="proposal-subtitle">From this moment until forever, I want every tomorrow with you.</p>
+
+        <!-- Yes / No Interactive Buttons -->
+        <div class="proposal-btn-wrap">
+          <button class="btn-proposal-yes" id="btnProposalYes">Yes! Forever ♥</button>
+          <button class="btn-proposal-no" id="btnProposalNo">No</button>
+        </div>
+      </div>
+
+      <!-- Accepted Celebration View -->
+      <div class="proposal-accepted" id="proposalAcceptedBlock">
+        <div class="accepted-badge">💍✨</div>
+        <div class="proposal-tag" style="margin-bottom: 8px;">She Said Yes! ♥</div>
+        <h2 class="accepted-heading">Forever & Always</h2>
+        <p class="accepted-body">
+          You just made me the happiest person in the universe! I promise to love you, cherish you, take care of you, and hold your hand through every single chapter of our lives, my cutu babyy Mahi. ♥
+        </p>
+        <button class="btn-proposal-yes" id="btnProposalDone" style="max-width: 260px; margin: 0 auto;">With All My Heart ♥</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ UNWRAPPED SURPRISE MODAL ═══ -->
+  <div class="modal-overlay" id="giftModal">
+    <div class="modal-card">
+      <div class="modal-badge" id="giftBadge">🎁</div>
+      <div class="modal-tag" id="giftTag">Exclusive Voucher For Mahi ♥</div>
+      <h2 class="modal-heading" id="giftTitle">A Romantic Dinner Date</h2>
+      <p class="modal-body" id="giftMessage">
+        An evening entirely dedicated to you, good food, soft candlelight, and your favorite treats. My treat, anywhere you want!
+      </p>
+      <div class="modal-actions">
+        <button class="btn-claim-gift" id="giftClaimBtn">Claim This Voucher &nbsp;♥</button>
+        <button class="btn-explore-others" id="giftExploreBtn">explore other gifts ✦</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── SURPRISE DATA FOR THE 4 GIFTS ───
+    const giftsData = {
+      1: {
+        badge: '🕯️✨',
+        title: 'Candlelight Dinner Date',
+        tag: 'Fine Dining Voucher ♥',
+        message: 'An entire evening dedicated just to you — glowing candlelight, your absolute favorite dishes, soft music, and endless deep conversations. My treat, anywhere your heart desires!'
+      },
+      2: {
+        badge: '🎬🍿',
+        title: 'Unlimited Cuddle & Movie Night',
+        tag: 'Cozy Night Pass ♥',
+        message: 'Your choice of movies, all the snacks you crave, warmest blankets, and infinite cuddles for as long as you want with zero interruptions.'
+      },
+      3: {
+        badge: '✈️🌸',
+        title: 'A Dream Weekend Getaway',
+        tag: 'Adventure Pass ♥',
+        message: 'Just the two of us escaping to a beautiful, quiet place to explore, make unforgettable memories, take hundreds of photos, and laugh together.'
+      },
+      4: {
+        badge: '👑💖',
+        title: 'The Magic Wish Card',
+        tag: '100% Guaranteed Wish ♥',
+        message: 'One special wish of yours, granted unconditionally with no questions asked and zero refusals. Redeem it whenever you wish, my love!'
+      }
+    };
+
+    // ─── MODAL CONTROLS ───
+    const giftModal = document.getElementById('giftModal');
+    const giftBadge = document.getElementById('giftBadge');
+    const giftTitle = document.getElementById('giftTitle');
+    const giftTag = document.getElementById('giftTag');
+    const giftMessage = document.getElementById('giftMessage');
+    const giftClaimBtn = document.getElementById('giftClaimBtn');
+    const giftExploreBtn = document.getElementById('giftExploreBtn');
+
+    // Box 1 Love Letter Modal Controls
+    const letterModal = document.getElementById('letterModal');
+    const letterFoldBtn = document.getElementById('letterFoldBtn');
+
+    // Box 2 Moments Modal Controls
+    const momentsModal = document.getElementById('momentsModal');
+    const momentsCloseBtn = document.getElementById('momentsCloseBtn');
+
+    let activeCard = null;
+
+    function openGift(card, id, e) {
+      activeCard = card;
+
+      // Pop lid animation on card
+      card.classList.add('opening');
+
+      // Confetti burst from tapped box
+      const rect = card.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2;
+      createBurst(originX, originY);
+
+      if (id === '1') {
+        // Open Love Letter Modal
+        setTimeout(() => {
+          letterModal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }, 350);
+      } else if (id === '2') {
+        // Open Moments Photo Album Modal
+        setTimeout(() => {
+          momentsModal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }, 350);
+      } else if (id === '3') {
+        // Open Why I Love You Reasons Modal
+        setTimeout(() => {
+          reasonsModal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }, 350);
+      } else if (id === '4') {
+        // Open Proposal Ring Modal
+        setTimeout(() => {
+          proposalModal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }, 350);
+      } else {
+        const data = giftsData[id];
+        if (!data) return;
+
+        giftBadge.textContent = data.badge;
+        giftTitle.textContent = data.title;
+        giftTag.textContent = data.tag;
+        giftMessage.textContent = data.message;
+
+        // Open voucher modal smoothly
+        setTimeout(() => {
+          giftModal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }, 350);
+      }
+    }
+
+    function closeGift() {
+      giftModal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (activeCard) {
+        activeCard.classList.remove('opening');
+        activeCard.classList.add('unwrapped');
+      }
+    }
+
+    function closeLetter() {
+      letterModal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (activeCard) {
+        activeCard.classList.remove('opening');
+        activeCard.classList.add('unwrapped');
+      }
+    }
+
+    function closeMoments() {
+      momentsModal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (activeCard) {
+        activeCard.classList.remove('opening');
+        activeCard.classList.add('unwrapped');
+      }
+    }
+
+    // Box 3 Reasons Modal Controls
+    const reasonsModal = document.getElementById('reasonsModal');
+    const reasonsCloseBtn = document.getElementById('reasonsCloseBtn');
+    const reasonsExploreBtn = document.getElementById('reasonsExploreBtn');
+    const btnRevealAll = document.getElementById('btnRevealAll');
+
+    function closeReasons() {
+      reasonsModal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (activeCard) {
+        activeCard.classList.remove('opening');
+        activeCard.classList.add('unwrapped');
+      }
+    }
+
+    document.querySelectorAll('.gift-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const id = card.getAttribute('data-gift');
+        openGift(card, id, e);
+      });
+    });
+
+    giftClaimBtn.addEventListener('click', closeGift);
+    giftExploreBtn.addEventListener('click', closeGift);
+    giftModal.addEventListener('click', (e) => {
+      if (e.target === giftModal) closeGift();
+    });
+
+    letterFoldBtn.addEventListener('click', closeLetter);
+    letterModal.addEventListener('click', (e) => {
+      if (e.target === letterModal) closeLetter();
+    });
+
+    momentsCloseBtn.addEventListener('click', closeMoments);
+    document.getElementById('momentsExploreBtn').addEventListener('click', closeMoments);
+    momentsModal.addEventListener('click', (e) => {
+      if (e.target === momentsModal) closeMoments();
+    });
+
+    // Box 3 Reasons Event Listeners
+    reasonsCloseBtn.addEventListener('click', closeReasons);
+    reasonsExploreBtn.addEventListener('click', closeReasons);
+    reasonsModal.addEventListener('click', (e) => {
+      if (e.target === reasonsModal) closeReasons();
+    });
+
+    // Tap individual reason card to reveal
+    document.querySelectorAll('.reason-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (card.classList.contains('closed')) {
+          const rect = card.getBoundingClientRect();
+          createBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+          card.classList.remove('closed');
+          card.classList.add('revealed');
+        }
+      });
+    });
+
+    // Reveal all reason cards at once
+    btnRevealAll.addEventListener('click', () => {
+      const rect = btnRevealAll.getBoundingClientRect();
+      createBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      document.querySelectorAll('.reason-card').forEach(card => {
+        card.classList.remove('closed');
+        card.classList.add('revealed');
+      });
+    });
+
+    // ─── BOX 4 PROPOSAL MODAL CONTROLS ───
+    const proposalModal = document.getElementById('proposalModal');
+    const proposalQuestionBlock = document.getElementById('proposalQuestionBlock');
+    const proposalAcceptedBlock = document.getElementById('proposalAcceptedBlock');
+    const btnProposalYes = document.getElementById('btnProposalYes');
+    const btnProposalNo = document.getElementById('btnProposalNo');
+    const btnProposalDone = document.getElementById('btnProposalDone');
+
+    function closeProposal() {
+      proposalModal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (activeCard) {
+        activeCard.classList.remove('opening');
+        activeCard.classList.add('unwrapped');
+      }
+    }
+
+    function acceptProposal() {
+      // Big celebratory sparkle shower!
+      const rect = proposalModal.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          createBurst(cx + (Math.random() - 0.5) * 220, cy + (Math.random() - 0.5) * 160);
+        }, i * 140);
+      }
+
+      proposalQuestionBlock.style.display = 'none';
+      proposalAcceptedBlock.classList.add('active');
+
+      if (activeCard) {
+        activeCard.classList.remove('opening');
+        activeCard.classList.add('unwrapped');
+      }
+    }
+
+    btnProposalYes.addEventListener('click', acceptProposal);
+
+    let noAttempts = 0;
+    const noPhrases = [
+      "Are you sure? 🥺",
+      "Think again! 🫣",
+      "No isn't an option! 😉",
+      "Mahi pleaseee ♥",
+      "Only Yes! 💍",
+      "Nice try! 🤭"
+    ];
+
+    function dodgeNo(e) {
+      if (e) e.preventDefault();
+      noAttempts++;
+      const x = (Math.random() - 0.5) * 140;
+      const y = (Math.random() - 0.5) * 70;
+      btnProposalNo.style.transform = `translate(${x}px, ${y}px)`;
+      btnProposalNo.textContent = noPhrases[noAttempts % noPhrases.length];
+
+      const r = btnProposalNo.getBoundingClientRect();
+      createBurst(r.left + r.width / 2, r.top + r.height / 2);
+
+      if (noAttempts >= 4) {
+        btnProposalNo.textContent = "Yes! ♥";
+        btnProposalNo.style.transform = 'none';
+        btnProposalNo.style.background = 'linear-gradient(135deg, var(--burgundy-deep) 0%, var(--burgundy) 100%)';
+        btnProposalNo.style.color = 'var(--gold-light)';
+      }
+    }
+
+    btnProposalNo.addEventListener('mouseenter', dodgeNo);
+    btnProposalNo.addEventListener('touchstart', (e) => {
+      if (noAttempts < 4) {
+        dodgeNo(e);
+      } else {
+        acceptProposal();
+      }
+    }, { passive: false });
+    btnProposalNo.addEventListener('click', (e) => {
+      if (noAttempts < 4) {
+        dodgeNo(e);
+      } else {
+        acceptProposal();
+      }
+    });
+
+    btnProposalDone.addEventListener('click', closeProposal);
+    proposalModal.addEventListener('click', (e) => {
+      if (e.target === proposalModal) closeProposal();
+    });
+
+    // ─── PHOTO LIGHTBOX CONTROLS ───
+    const photoLightbox = document.getElementById('photoLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    document.querySelectorAll('.polaroid-card, .polaroid-feature').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const img = card.querySelector('img');
+        const cap = card.querySelector('.polaroid-caption');
+        if (img && cap) {
+          lightboxImg.src = img.src;
+          lightboxCaption.textContent = cap.textContent;
+          photoLightbox.classList.add('open');
+        }
+      });
+    });
+
+    photoLightbox.addEventListener('click', () => {
+      photoLightbox.classList.remove('open');
+    });
+
+    // ─── CONFETTI BURST FUNCTION ───
+    const sparkles = ['✨', '♥', '✦', '🌸', '💖', '🎁', '🌹', '👑'];
+    function createBurst(x, y) {
+      for (let i = 0; i < 14; i++) {
+        const spark = document.createElement('div');
+        spark.classList.add('tap-sparkle');
+        spark.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+
+        const tx = (Math.random() - 0.5) * 200 + 'px';
+        const ty = (Math.random() - 0.8) * 180 + 'px';
+        const rot = (Math.random() - 0.5) * 120 + 'deg';
+
+        spark.style.left = x + 'px';
+        spark.style.top = y + 'px';
+        spark.style.setProperty('--tx', tx);
+        spark.style.setProperty('--ty', ty);
+        spark.style.setProperty('--rot', rot);
+
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 1100);
+      }
+    }
+
+    // ─── GENTLE FALLING CHERRY BLOSSOMS & SPARKLES ───
+    const petalsLayer = document.getElementById('petalsLayer');
+    const romanticElements = ['🌸', '🌹', '✨', '💖', '✦', '🌸'];
+    const petalCount = window.innerWidth < 680 ? 14 : 22;
+
+    for (let i = 0; i < petalCount; i++) {
+      const p = document.createElement('div');
+      p.classList.add('falling-petal');
+      p.textContent = romanticElements[Math.floor(Math.random() * romanticElements.length)];
+
+      const size = Math.random() * 8 + 12;
+      const left = Math.random() * 100;
+      const duration = Math.random() * 10 + 12;
+      const delay = Math.random() * 18;
+
+      p.style.cssText = `
+        font-size: ${size}px;
+        left: ${left}%;
+        top: -30px;
+        animation-duration: ${duration}s;
+        animation-delay: -${delay}s;
+      `;
+
+      petalsLayer.appendChild(p);
+    }
+
+    // ─── FLOATING PARTICLES ───
+    const container = document.getElementById('particles');
+    const count = window.innerWidth < 680 ? 14 : 22;
+
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.classList.add('particle');
+
+      const size = Math.random() * 3.5 + 1.5;
+      const left = Math.random() * 100;
+      const duration = Math.random() * 16 + 18;
+      const delay = Math.random() * 18;
+      const hue = Math.random() > 0.5 ? '#b8923a' : '#e8c8c8';
+
+      p.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${left}%;
+        bottom: -10px;
+        background: ${hue};
+        animation-duration: ${duration}s;
+        animation-delay: -${delay}s;
+        box-shadow: 0 0 ${size * 2}px ${hue};
+      `;
+
+      container.appendChild(p);
+    }
+  </script>
+
+</body>
+</html>
